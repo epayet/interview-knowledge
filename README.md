@@ -1,4 +1,4 @@
-# Interviewing notes: static site builder
+# Interview knowledge: static site builder
 
 This turns the Obsidian extract in `vault/` (not tracked in git: copy or export it there yourself) into a static website (plain HTML, CSS and JS, no framework) that friends can browse. It starts from the map of content `vault/Knowledge/+ Interviewing.md`.
 
@@ -34,7 +34,8 @@ npm run dev        # builds, serves http://localhost:8080 and rebuilds on every 
 | `npm run preview` | Serves the current `dist/` without watching. |
 | `npm run check` | Build, then print only the warnings: broken links, unlinked notes, privacy-tagged notes, map gaps, number candidates. Exits non-zero on errors. Run it before deploying. |
 | `npm run audit` | Writes `audit-report.md`, a list of cleanup candidates. It **never deletes anything**. It's the input for `/clean-extract`. `npm run audit -- --json` prints the same data as JSON. |
-| `npm run deploy` | `rsync -avz --delete dist/ $DEPLOY_TARGET`. Copy `.env.example` to `.env` and set e.g. `DEPLOY_TARGET=user@host:/var/www/site/interviewing/`. On any other host (Netlify drop, GitHub Pages, FTP…), just upload the **contents** of `dist/`. |
+| `npm run deploy:pages` | Build, then publish `dist/` to GitHub Pages (the `gh-pages` branch). See [Deploying](#deploying). |
+| `npm run deploy` | Copy `dist/` to your own server with rsync (`DEPLOY_TARGET`). See [Deploying](#deploying). |
 
 All links in `dist/` are relative, so the site works from any sub-folder of your website.
 
@@ -47,7 +48,7 @@ Typical loop:
 1. Edit or add notes in Obsidian, then refresh the `vault/` extract.
 2. `npm run check` and read the warnings.
 3. `npm run preview` (or keep `npm run dev` running while editing) and have a look.
-4. `npm run deploy`.
+4. `npm run deploy:pages` (or `npm run deploy` for your own server).
 
 How changes flow through, with no site code to touch:
 
@@ -60,9 +61,43 @@ How changes flow through, with no site code to touch:
 
 `vault` in `config.json` could point at your main vault instead of the extract. Publishing still follows links from `+ Interviewing`, but everything linked in the main vault would then be reachable, so the curated extract is the default.
 
+## Deploying
+
+The site is a folder of static files (`dist/`), so it can be hosted anywhere. Your notes (`vault/`) are not in git, so GitHub can't build the site itself: you build locally and publish the result.
+
+### GitHub Pages (recommended)
+
+One-time setup:
+
+1. Create a repository on GitHub and push this one: `git remote add origin git@github.com:<you>/<repo>.git && git push -u origin main`.
+2. Run `npm run deploy:pages` once, so the `gh-pages` branch exists.
+3. On GitHub: **Settings → Pages → Build and deployment → Source: "Deploy from a branch"**, branch **`gh-pages`**, folder **`/ (root)`**.
+
+The site is then at `https://<you>.github.io/<repo>/` (links are relative, so the sub-path works).
+
+To publish an update, run `npm run deploy:pages`. It builds, then force-pushes `dist/` as a single commit to `gh-pages`. That branch only ever contains the built site: never the vault, never old versions. `main` holds the builder code.
+
+Settings in `.env` (all optional):
+
+| Variable | Meaning |
+|---|---|
+| `PAGES_REMOTE` | Where to push `gh-pages`: a git remote name (default `origin`) or a repository URL. |
+| `PAGES_CNAME` | A custom domain (e.g. `notes.example.com`). It writes the `CNAME` file GitHub Pages needs. Point your DNS at GitHub as described in their docs. |
+| `PAGES_BRANCH` | The branch to publish to (default `gh-pages`). |
+
+Things to know:
+- GitHub Pages on a free account needs a **public repository**. The builder code, and the author name and email on your commits, become visible. `vault/` is never pushed (it's in `.gitignore`), but the published site is public anyway.
+- Run `npm run check` first, and read the privacy section of `publish-report.md`.
+
+### Your own server
+
+`npm run deploy` copies `dist/` to a server with `rsync -avz --delete dist/ $DEPLOY_TARGET`. It needs SSH access to the server.
+
+`DEPLOY_TARGET` is the rsync destination, in the form `user@host:/path/on/server/`. For example, `me@myserver.com:/var/www/mysite/interviewing/` makes the site available at `https://mysite.com/interviewing/`. `--delete` removes files on the server that are no longer in `dist/` (e.g. a deleted note's page), so point it at a folder used only for this site.
+
 ## Note conventions the build understands
 
-**Mine vs sourced.** A line like `From [[Source/Video/…]]:` or `From Google:` starts a *sourced block*, which is rendered in a framed box with a chip linking to the source. The block ends at the next heading, the next `From …:` line, or a blank line followed by a plain paragraph. `>` quotes are also shown as sourced. Everything else is shown as the author's own writing. The ◐ button in the header strengthens the contrast.
+**Mine vs sourced.** A line like `From [[Source/Video/…]]:` or `From Google:` starts a *sourced block* (it also works with a trailing period or no colon, `From [[Person]] in [[Source/…]]`, and a `From [[…]]:` at the end of your own sentence), which is rendered in a framed box with a chip linking to the source. The block ends at the next heading, the next `From …:` line, or a blank line followed by a plain paragraph. `>` quotes are also shown as sourced. Everything else is shown as the author's own writing.
 
 **Footer fields** (after the last `---`):
 
@@ -117,7 +152,7 @@ Two more keys in `architecture.json`:
 
 `data/numbers.json` holds "Numbers to know". Each entry has `label`, `value`, `detail`, `note` (the note it comes from) and `group`.
 
-`.env` holds `DEPLOY_TARGET=` for `npm run deploy`.
+`.env` holds the deploy settings (copy `.env.example`); see [Deploying](#deploying).
 
 ## Reading the publish report
 
@@ -183,7 +218,7 @@ lib/map.mjs          system design map SVG
 lib/render.mjs       page templates
 lib/serve.mjs        preview / dev server with live reload
 lib/audit.mjs        cleanup audit
-lib/deploy.mjs       rsync deploy
+lib/deploy.mjs       deploy to GitHub Pages (--pages) or rsync to a server
 static/              style.css, app.js and logo.svg (favicon), copied to dist/assets/
 data/                architecture.json and numbers.json
 ```

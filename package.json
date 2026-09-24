@@ -1,5 +1,5 @@
 {
-  "name": "interviewing-notes-site",
+  "name": "interview-knowledge-site",
   "private": true,
   "type": "module",
   "engines": { "node": ">=20" },
@@ -9,7 +9,8 @@
     "dev": "node lib/serve.mjs --watch",
     "preview": "node lib/serve.mjs",
     "audit": "node lib/audit.mjs",
-    "deploy": "node lib/deploy.mjs"
+    "deploy": "node lib/deploy.mjs",
+    "deploy:pages": "node build.mjs && node lib/deploy.mjs --pages"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
