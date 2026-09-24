@@ -3,33 +3,191 @@
   "entry": "Knowledge/+ Interviewing",
   "siteTitle": "Interviewing notes",
   "siteSubtitle": "What I learned preparing for software engineering interviews",
-  "pinned": ["System Design interview", "Programming interview", "Culture interview"],
-  "excludeTags": ["private"],
-  "privacyTags": ["me", "mental-health", "burnout"],
-  "maturityWeights": { "ownVoice": 1, "structure": 1, "incomplete": -1, "connected": 0.3 },
-  "maturityThresholds": { "growing": 1.4, "established": 3.2 },
+  "siteIntro": [
+    "I kept these notes along the way: takeaways from videos, articles and books, mixed with my own experience. Linking them together helped me see the patterns behind interview questions.",
+    "Interviewing too? Start with one of the three interview types below, refresh the building blocks on the map, and rehearse explaining decisions with the trade-offs and the practice page."
+  ],
+  "pinned": [
+    "System Design interview",
+    "Programming interview",
+    "Culture interview"
+  ],
+  "excludeTags": [
+    "private"
+  ],
+  "privacyTags": [
+    "me",
+    "mental-health",
+    "burnout"
+  ],
+  "maturityWeights": {
+    "ownVoice": 1,
+    "structure": 1,
+    "incomplete": -1,
+    "connected": 0.3
+  },
+  "maturityThresholds": {
+    "growing": 1.4,
+    "established": 3.2
+  },
   "sourceSections": {
-    "keep": ["Highlights"],
-    "ai": ["AI Notes", "AI"]
+    "keep": [
+      "Highlights"
+    ],
+    "ai": [
+      "AI Notes",
+      "AI"
+    ]
   },
   "tradeoffGroups": [
-    { "id": "data", "label": "Data stores", "ancestors": ["Database", "How to choose a database", "Relational Database", "PostgreSQL", "DynamoDB", "Caching", "Database Sharding"] },
-    { "id": "messaging", "label": "Messaging & events", "ancestors": ["Message queues", "Event Driven System", "Distributed transactions"] },
-    { "id": "api", "label": "APIs & communication", "ancestors": ["API Design", "WebSocket"] },
-    { "id": "network", "label": "Networking & edge", "ancestors": ["Networking", "Load Balancer", "Reverse proxy", "API Gateway", "CDN - Content Delivery Network"] },
-    { "id": "scale", "label": "Consistency & scale", "ancestors": ["System Design", "Scalability", "Consistency", "Availability"] },
-    { "id": "practice", "label": "Engineering practice", "ancestors": [] }
+    {
+      "id": "data",
+      "label": "Data stores",
+      "ancestors": [
+        "Database",
+        "How to choose a database",
+        "Relational Database",
+        "PostgreSQL",
+        "DynamoDB",
+        "Caching",
+        "Database Sharding"
+      ]
+    },
+    {
+      "id": "messaging",
+      "label": "Messaging & events",
+      "ancestors": [
+        "Message queues",
+        "Event Driven System",
+        "Distributed transactions"
+      ]
+    },
+    {
+      "id": "api",
+      "label": "APIs & communication",
+      "ancestors": [
+        "API Design",
+        "WebSocket"
+      ]
+    },
+    {
+      "id": "network",
+      "label": "Networking & edge",
+      "ancestors": [
+        "Networking",
+        "Load Balancer",
+        "Reverse proxy",
+        "API Gateway",
+        "CDN - Content Delivery Network"
+      ]
+    },
+    {
+      "id": "scale",
+      "label": "Consistency & scale",
+      "ancestors": [
+        "System Design",
+        "Scalability",
+        "Consistency",
+        "Availability"
+      ]
+    },
+    {
+      "id": "practice",
+      "label": "Engineering practice",
+      "ancestors": []
+    }
   ],
   "tradeoffFactors": {
-    "consistency": { "note": "Consistency", "terms": ["consisten", "acid", "transaction", "double-book", "stale"] },
-    "availability": { "note": "Availability", "terms": ["availab", "uptime", "downtime", "fault"] },
-    "latency": { "note": "Latency", "terms": ["latency", "faster", "fast ", "speed", "real-time", "real time", "response time"] },
-    "throughput": { "note": "Throughput", "terms": ["throughput", "high volume", "requests per second"] },
-    "scalability": { "note": "Scalability", "terms": ["scal", "shard", "horizontal"] },
-    "ordering": { "note": null, "terms": ["order"] },
-    "persistence": { "note": null, "terms": ["persist", "durab", "disk", "replay"] },
-    "cost": { "note": null, "terms": ["cost", "expensive", "cheap", "pay "] },
-    "ops burden": { "note": null, "terms": ["operation", "managed", "maintenance", "maintain", "complexity", "overhead"] },
-    "flexibility": { "note": null, "terms": ["flexib", "schema", "query pattern", "access pattern"] }
+    "consistency": {
+      "note": "Consistency",
+      "terms": [
+        "consisten",
+        "acid",
+        "transaction",
+        "double-book",
+        "stale"
+      ]
+    },
+    "availability": {
+      "note": "Availability",
+      "terms": [
+        "availab",
+        "uptime",
+        "downtime",
+        "fault"
+      ]
+    },
+    "latency": {
+      "note": "Latency",
+      "terms": [
+        "latency",
+        "faster",
+        "fast ",
+        "speed",
+        "real-time",
+        "real time",
+        "response time"
+      ]
+    },
+    "throughput": {
+      "note": "Throughput",
+      "terms": [
+        "throughput",
+        "high volume",
+        "requests per second"
+      ]
+    },
+    "scalability": {
+      "note": "Scalability",
+      "terms": [
+        "scal",
+        "shard",
+        "horizontal"
+      ]
+    },
+    "ordering": {
+      "note": null,
+      "terms": [
+        "order"
+      ]
+    },
+    "persistence": {
+      "note": null,
+      "terms": [
+        "persist",
+        "durab",
+        "disk",
+        "replay"
+      ]
+    },
+    "cost": {
+      "note": null,
+      "terms": [
+        "cost",
+        "expensive",
+        "cheap",
+        "pay "
+      ]
+    },
+    "ops burden": {
+      "note": null,
+      "terms": [
+        "operation",
+        "managed",
+        "maintenance",
+        "maintain",
+        "complexity",
+        "overhead"
+      ]
+    },
+    "flexibility": {
+      "note": null,
+      "terms": [
+        "flexib",
+        "schema",
+        "query pattern",
+        "access pattern"
+      ]
+    }
   }
 }

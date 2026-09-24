@@ -1,4 +1,4 @@
-// Progressive enhancements: theme, provenance toggle, drawer, search, link previews,
+// Progressive enhancements: theme, drawer, search, link previews,
 // trade-off filters and the system design map panel. Pages work without it.
 (function () {
   const ROOT = document.currentScript?.dataset.root || '';
@@ -19,16 +19,6 @@
   themeBtn?.addEventListener('click', () => {
     const next = isDark() ? 'light' : 'dark';
     html.dataset.theme = next; store.set('theme', next); paintTheme();
-  });
-
-  // ---------- Provenance emphasis ----------
-  const provBtn = $('.prov-btn');
-  const paintProv = () => provBtn?.setAttribute('aria-pressed', html.dataset.prov === 'strong' ? 'true' : 'false');
-  paintProv();
-  provBtn?.addEventListener('click', () => {
-    if (html.dataset.prov === 'strong') { delete html.dataset.prov; store.set('prov', null); }
-    else { html.dataset.prov = 'strong'; store.set('prov', 'strong'); }
-    paintProv();
   });
 
   // ---------- Drawer ----------

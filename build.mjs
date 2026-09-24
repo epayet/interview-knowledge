@@ -130,11 +130,12 @@ export function build({ quiet = false } = {}) {
   const lines = entry.main.split('\n');
   const firstHeading = lines.findIndex(l => /^#\s/.test(l));
   const lead = lines.slice(0, firstHeading < 0 ? lines.length : firstHeading);
-  const startHere = lead.flatMap(l => [...l.matchAll(/\[\[([^\]]+)\]\]/g)].map(m => vault.resolve(m[1].split('|')[0].split('#')[0]))).filter(n => n?.published);
+  // "Start here" = the pinned topics (config.pinned); falls back to the map of content's leading links.
+  const startHere = graph.tree.pinned.length ? graph.tree.pinned : lead.flatMap(l => [...l.matchAll(/\[\[([^\]]+)\]\]/g)].map(m => vault.resolve(m[1].split('|')[0].split('#')[0]))).filter(n => n?.published);
   const mocHtml = renderHtml(lines.slice(firstHeading < 0 ? lines.length : firstHeading).join('\n'));
   write('index.html', T.layout({
     site, title: site.siteTitle, description: site.siteSubtitle, active: 'home', bodyClass: 'home',
-    body: T.homePage({ site, entry, startHere, mocHtml, legend: T.LEGEND, randomHtml: T.randomTradeoff(tradeoffs.cards, tradeoffs.groups), counts: { notes: K.length, sources: S.length, tradeoffs: tradeoffs.cards.length } }),
+    body: T.homePage({ site, entry, startHere, mocHtml, randomHtml: T.randomTradeoff(tradeoffs.cards, tradeoffs.groups), counts: { notes: K.length, sources: S.length, tradeoffs: tradeoffs.cards.length } }),
     sidebarHtml: T.sidebar(graph.tree, null),
   }));
 

@@ -97,6 +97,7 @@ Other syntax: `[[wikilinks]]` (links to unpublished notes become plain dotted te
 |---|---|
 | `vault`, `entry` | Where the vault is, and the note everything hangs off. |
 | `siteTitle`, `siteSubtitle` | Shown on the home page and in page titles. |
+| `siteIntro` | Paragraphs under the home page title. Mentions of "the map", "the trade-offs" and "the practice page" become links. |
 | `excludeTags` | Notes with these tags are never published (default `#private`). |
 | `privacyTags` | Published notes with these tags are flagged in the report for a double-check. |
 | `maturityWeights`, `maturityThresholds` | Tuning for the estimated badge. |
@@ -183,7 +184,7 @@ lib/render.mjs       page templates
 lib/serve.mjs        preview / dev server with live reload
 lib/audit.mjs        cleanup audit
 lib/deploy.mjs       rsync deploy
-static/              style.css and app.js, copied to dist/assets/
+static/              style.css, app.js and logo.svg (favicon), copied to dist/assets/
 data/                architecture.json and numbers.json
 ```
 
