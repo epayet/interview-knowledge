@@ -1,0 +1,314 @@
+{
+  "layers": [
+    {
+      "id": "edge",
+      "label": "Clients & edge"
+    },
+    {
+      "id": "entry",
+      "label": "Entry point"
+    },
+    {
+      "id": "services",
+      "label": "Services"
+    },
+    {
+      "id": "async",
+      "label": "Async processing"
+    },
+    {
+      "id": "data",
+      "label": "Data"
+    }
+  ],
+  "components": [
+    {
+      "id": "client",
+      "label": "Client",
+      "layer": "edge",
+      "notes": [],
+      "blurb": "Browser, mobile app or another service."
+    },
+    {
+      "id": "cdn",
+      "label": "CDN",
+      "layer": "edge",
+      "notes": [
+        "CDN - Content Delivery Network"
+      ]
+    },
+    {
+      "id": "blob",
+      "label": "Blob storage",
+      "layer": "edge",
+      "notes": [
+        "Pre-signed urls"
+      ]
+    },
+    {
+      "id": "realtime",
+      "label": "Real-time updates",
+      "layer": "edge",
+      "notes": [
+        "WebSockets vs SSE vs API polling",
+        "WebSocket"
+      ]
+    },
+    {
+      "id": "lb",
+      "label": "Load balancer",
+      "layer": "entry",
+      "notes": [
+        "Load Balancer",
+        "Reverse proxy vs API gateway vs load balancer",
+        "Stateless vs Sticky sessions"
+      ]
+    },
+    {
+      "id": "gateway",
+      "label": "API gateway",
+      "layer": "entry",
+      "notes": [
+        "API Gateway",
+        "Reverse proxy",
+        "Forward proxy vs Reverse proxy vs API Gateway"
+      ]
+    },
+    {
+      "id": "ratelimit",
+      "label": "Rate limiting",
+      "layer": "entry",
+      "notes": [
+        "API Rate limiting"
+      ]
+    },
+    {
+      "id": "auth",
+      "label": "Authentication",
+      "layer": "entry",
+      "notes": [
+        "API Authentication",
+        "Managing sessions"
+      ]
+    },
+    {
+      "id": "app",
+      "label": "App servers",
+      "layer": "services",
+      "notes": [
+        "Horizontal scaling",
+        "Scalability",
+        "Adding a dependency to a service adds network overhead"
+      ]
+    },
+    {
+      "id": "api",
+      "label": "API design",
+      "layer": "services",
+      "notes": [
+        "API Design",
+        "REST vs GraphQL",
+        "GraphQL",
+        "RPC methods",
+        "REST framework"
+      ]
+    },
+    {
+      "id": "resilience",
+      "label": "Resilience",
+      "layer": "services",
+      "notes": [
+        "API retries",
+        "API Circuit breakers",
+        "API short vs long timeouts",
+        "Idempotency key"
+      ]
+    },
+    {
+      "id": "config",
+      "label": "Configuration",
+      "layer": "services",
+      "notes": [
+        "Distributed configuration management"
+      ]
+    },
+    {
+      "id": "queue",
+      "label": "Message queue",
+      "layer": "async",
+      "notes": [
+        "Message queues",
+        "Kafka vs SQS"
+      ]
+    },
+    {
+      "id": "events",
+      "label": "Event-driven",
+      "layer": "async",
+      "notes": [
+        "Event Driven System"
+      ]
+    },
+    {
+      "id": "processing",
+      "label": "Batch / stream",
+      "layer": "async",
+      "notes": [
+        "Batch processing vs stream processing",
+        "Cron jobs to fix data vs TTL"
+      ]
+    },
+    {
+      "id": "txn",
+      "label": "Distributed transactions",
+      "layer": "async",
+      "notes": [
+        "Distributed transactions",
+        "Saga choreography vs saga orchestration"
+      ]
+    },
+    {
+      "id": "cache",
+      "label": "Cache",
+      "layer": "data",
+      "notes": [
+        "Caching",
+        "Caching patterns",
+        "Redis",
+        "Redis vs Memcached"
+      ]
+    },
+    {
+      "id": "db",
+      "label": "Database",
+      "layer": "data",
+      "notes": [
+        "Database",
+        "How to choose a database",
+        "Access pattern driven modelling",
+        "Relational Database",
+        "PostgreSQL",
+        "DynamoDB",
+        "Cassandra Database",
+        "AWS Aurora",
+        "Database types"
+      ]
+    },
+    {
+      "id": "dbscale",
+      "label": "Scaling the DB",
+      "layer": "data",
+      "notes": [
+        "Database Sharding",
+        "Database Replication",
+        "Database index",
+        "Connection Pooling",
+        "Sync between databases"
+      ]
+    },
+    {
+      "id": "search",
+      "label": "Search",
+      "layer": "data",
+      "notes": [
+        "Search systems",
+        "ElasticSearch",
+        "Search optimised database"
+      ]
+    }
+  ],
+  "crossCutting": [
+    {
+      "id": "latency",
+      "label": "Latency",
+      "notes": [
+        "Latency"
+      ]
+    },
+    {
+      "id": "throughput",
+      "label": "Throughput",
+      "notes": [
+        "Throughput"
+      ]
+    },
+    {
+      "id": "availability",
+      "label": "Availability",
+      "notes": [
+        "Availability"
+      ]
+    },
+    {
+      "id": "consistency",
+      "label": "Consistency",
+      "notes": [
+        "Consistency",
+        "Consistency vs Availability",
+        "Database ACID"
+      ]
+    },
+    {
+      "id": "scalability",
+      "label": "Scalability",
+      "notes": [
+        "Scalability",
+        "Horizontal scaling"
+      ]
+    }
+  ],
+  "edges": [
+    [
+      "client",
+      "cdn"
+    ],
+    [
+      "client",
+      "lb"
+    ],
+    [
+      "lb",
+      "gateway"
+    ],
+    [
+      "gateway",
+      "ratelimit"
+    ],
+    [
+      "gateway",
+      "app"
+    ],
+    [
+      "app",
+      "queue"
+    ],
+    [
+      "queue",
+      "events"
+    ],
+    [
+      "events",
+      "processing"
+    ],
+    [
+      "app",
+      "cache"
+    ],
+    [
+      "app",
+      "db"
+    ],
+    [
+      "processing",
+      "db"
+    ],
+    [
+      "db",
+      "dbscale"
+    ]
+  ],
+  "notOnMap": [
+    "System Design Primer"
+  ],
+  "patternsNote": "Common System Design Patterns"
+}

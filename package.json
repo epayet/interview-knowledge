@@ -1,0 +1,20 @@
+{
+  "name": "interviewing-notes-site",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node build.mjs --check",
+    "dev": "node lib/serve.mjs --watch",
+    "preview": "node lib/serve.mjs",
+    "audit": "node lib/audit.mjs",
+    "deploy": "node lib/deploy.mjs"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^14.1.0",
+    "markdown-it-footnote": "^4.0.0",
+    "minisearch": "^7.1.0"
+  }
+}

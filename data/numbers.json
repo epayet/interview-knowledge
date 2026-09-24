@@ -1,0 +1,10 @@
+[
+  { "label": "Memory vs disk reads", "value": "≈10,000× faster", "detail": "Why a cache in front of the database pays off.", "note": "Caching", "group": "Speed" },
+  { "label": "Redis throughput", "value": "≈100k req/s", "detail": "Per instance, rough order of magnitude.", "note": "Redis", "group": "Throughput" },
+  { "label": "PostgreSQL reads", "value": "≈20k queries/s", "detail": "Single instance.", "note": "PostgreSQL", "group": "Throughput" },
+  { "label": "PostgreSQL writes", "value": "≈5–10k writes/s", "detail": "Single primary; beyond this consider sharding or a write-optimised store.", "note": "How to choose a database", "group": "Throughput" },
+  { "label": "When DynamoDB starts to make sense", "value": "> 10k writes/s", "detail": "Heavy writes with key-value access patterns.", "note": "PostgreSQL vs DynamoDB", "group": "Throughput" },
+  { "label": "Single PostgreSQL gets uncomfortable", "value": "≈100 GB – 1 TB", "detail": "Maintenance, vacuum and backups get painful; technical limit is far higher.", "note": "PostgreSQL", "group": "Storage" },
+  { "label": "Aurora storage", "value": "up to 128 TB", "detail": "Grows automatically in 10 GB increments.", "note": "AWS Aurora", "group": "Storage" },
+  { "label": "One user row", "value": "≈1 KB", "detail": "Including overhead; raw fields are ~150 bytes (ids 8–16 B, email 30–60 B, bcrypt hash 60 B).", "note": "How much data is a user in a database roughly", "group": "Storage" }
+]
