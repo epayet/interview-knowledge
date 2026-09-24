@@ -2,10 +2,11 @@
   "vault": "vault",
   "entry": "Knowledge/+ Interviewing",
   "siteTitle": "Interview knowledge",
-  "siteSubtitle": "What I learned preparing for software engineering interviews",
+  "siteSubtitle": "A frontend to my personal knowledge related to engineering knowledge useful for interviews",
   "siteIntro": [
-    "I kept these notes along the way: takeaways from videos, articles and books, mixed with my own experience. Linking them together helped me see the patterns behind interview questions.",
-    "Interviewing too? Start with one of the three interview types below, refresh the building blocks on the map, and rehearse explaining decisions with the trade-offs and the practice page."
+    "I kept these notes along the way: takeaways from videos, articles and books, mixed with my own experience. Linking them together helped me refresh my knowledge as well as understanding how to showcase it the best way.",
+    "Interviewing too? I recommend you build your own knowledge base in your own way. I'm hoping that the library and other tools in here inspire you in your preparation journey.",
+    "I'm not claiming that everything written here is a gospel of truth, but rather helpful thoughts and opinions."
   ],
   "pinned": [
     "System Design interview",

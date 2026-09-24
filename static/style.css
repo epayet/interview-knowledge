@@ -453,3 +453,9 @@ button.btn { border: 0; cursor: pointer; font: inherit; font-size: .92rem; }
 .hero-intro { color: var(--ink-2); margin: 10px 0 0; }
 
 .brand-mark { width: 24px; height: 24px; flex: none; }
+/* Source-type line icons (lib/icons.mjs). */
+.icon { width: 1em; height: 1em; flex: none; vertical-align: -0.14em; }
+.ext-chip .icon { width: 1.05em; height: 1.05em; }
+.src-kind .icon, .sec-title .icon { width: 1.1em; height: 1.1em; }
+.ext-chip .ext-icon { font-size: 1em; display: inline-flex; }
+.ext-chip .icon { width: 1.2em; height: 1.2em; }
