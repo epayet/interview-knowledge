@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>System design map · Interview knowledge</title>
+<meta name="description" content="Reference architecture linked to notes">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+<link rel="stylesheet" href="assets/style.css">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<script defer src="assets/app.js" data-root=""></script>
+</head>
+<body class="wide">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn hidden-btn" type="button" aria-label="Show all notes" aria-expanded="false" aria-controls="sidebar">☰</button>
+  <a class="brand" href="index.html"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M11 24.5 8.5 30M21 24.5 23.5 30" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/><rect x="1.5" y="2.5" width="29" height="22" rx="4" fill="var(--accent)"/><g fill="none" stroke="var(--bg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="9" width="6.5" height="6.5" rx="1.2"/><path d="M12.5 12.25c3 0 4.5 1.5 5.5 5"/></g><path d="M17.5 19.5c-.6-6.2 3.2-10.4 9-11 .5 6.3-3.3 10.6-9 11z" fill="var(--bg)"/></svg>Interview knowledge</a>
+  <nav class="mainnav" aria-label="Sections"><a href="index.html">Home</a><a href="map.html" aria-current="page">System design map</a><a href="tradeoffs.html">Trade-offs</a><a href="practice.html">Practice</a><a href="library.html">Library</a><a href="tags.html">Tags</a></nav>
+  <div class="search" role="search">
+    <input id="q" type="search" placeholder="Search notes…" autocomplete="off" aria-label="Search notes" aria-controls="results">
+    <kbd class="search-kbd">/</kbd>
+    <div id="results" class="results" hidden></div>
+  </div>
+  <button class="icon-btn theme-btn" type="button" title="Toggle dark mode">☾<span class="sr">Toggle dark mode</span></button>
+</header>
+<div class="shell no-sidebar">
+  
+  <main id="main" class="main"><nav class="mobile-nav" aria-label="Sections"><a href="index.html">Home</a><a href="map.html" aria-current="page">System design map</a><a href="tradeoffs.html">Trade-offs</a><a href="practice.html">Practice</a><a href="library.html">Library</a><a href="tags.html">Tags</a></nav>
+<header class="page-head"><h1>System design map</h1><p class="lede">A typical architecture, one layer at a time. Each box opens what I've written about that component. Greyed boxes are gaps I haven't written up yet.</p></header>
+<section class="problems" aria-label="Common problems">
+  <div class="prob-head"><h2 class="sec-title">Common problems</h2><span class="muted">Pick a problem to light up the building blocks that solve it. From <a href="notes/common-system-design-patterns.html" data-note="notes/common-system-design-patterns.html">Common System Design Patterns</a>.</span></div>
+  <div class="prob-chips"><a class="prob" href="notes/common-system-design-patterns.html#real-time-updates" data-prob="p-real-time-updates" data-comps="realtime" aria-pressed="false">Real time updates</a><a class="prob" href="notes/common-system-design-patterns.html#long-running-tasks" data-prob="p-long-running-tasks" data-comps="queue" aria-pressed="false">Long running tasks</a><a class="prob" href="notes/common-system-design-patterns.html#data-contention" data-prob="p-data-contention" data-comps="consistency" aria-pressed="false">Data contention</a><a class="prob" href="notes/common-system-design-patterns.html#scaling-reads" data-prob="p-scaling-reads" data-comps="cache dbscale" aria-pressed="false">Scaling reads</a><a class="prob" href="notes/common-system-design-patterns.html#scaling-writes" data-prob="p-scaling-writes" data-comps="dbscale" aria-pressed="false">Scaling writes</a><a class="prob" href="notes/common-system-design-patterns.html#handling-large-blobs" data-prob="p-handling-large-blobs" data-comps="blob" aria-pressed="false">Handling large blobs</a><a class="prob" href="notes/common-system-design-patterns.html#multi-step-process" data-prob="p-multi-step-process" data-comps="txn" aria-pressed="false">Multi step process</a><a class="prob missing" href="notes/common-system-design-patterns.html#proximity-based-services" data-prob="p-proximity-based-services" data-comps="" aria-pressed="false">Proximity based services</a></div>
+</section>
+<div class="map-wrap">
+  <div class="map-canvas"><svg class="map-svg" viewBox="0 0 1000 594" role="img" aria-label="System design reference architecture"><defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="map-arrow"/></marker></defs><rect class="map-band" x="8" y="34" width="790" height="102" rx="10"/><text class="map-layer" x="784" y="47" text-anchor="end">CLIENTS &amp; EDGE</text><rect class="map-band" x="8" y="146" width="790" height="102" rx="10"/><text class="map-layer" x="784" y="159" text-anchor="end">ENTRY POINT</text><rect class="map-band" x="8" y="258" width="790" height="102" rx="10"/><text class="map-layer" x="784" y="271" text-anchor="end">SERVICES</text><rect class="map-band" x="8" y="370" width="790" height="102" rx="10"/><text class="map-layer" x="784" y="383" text-anchor="end">ASYNC PROCESSING</text><rect class="map-band" x="8" y="482" width="790" height="102" rx="10"/><text class="map-layer" x="784" y="495" text-anchor="end">DATA</text><rect class="map-band cross" x="812" y="34" width="180" height="550" rx="10"/><text class="map-layer" x="826" y="48">CROSS-CUTTING</text><path class="map-edge" d="M205,79 L235,79" marker-end="url(#arr)"/><path class="map-edge" d="M125,106 C125,135 125,135 125,164" marker-end="url(#arr)"/><path class="map-edge" d="M205,191 L235,191" marker-end="url(#arr)"/><path class="map-edge" d="M395,191 L425,191" marker-end="url(#arr)"/><path class="map-edge" d="M315,218 C315,247 125,247 125,276" marker-end="url(#arr)"/><path class="map-edge" d="M125,330 C125,359 125,359 125,388" marker-end="url(#arr)"/><path class="map-edge" d="M205,415 L235,415" marker-end="url(#arr)"/><path class="map-edge" d="M395,415 L425,415" marker-end="url(#arr)"/><path class="map-edge" d="M125,330 V336 Q125,342 119,342 H36 Q30,342 30,348 V482 Q30,488 36,488 H119 Q125,488 125,494 V500" marker-end="url(#arr)"/><path class="map-edge" d="M125,330 V336 Q125,342 131,342 H214 Q220,342 220,348 V482 Q220,488 226,488 H309 Q315,488 315,494 V500" marker-end="url(#arr)"/><path class="map-edge" d="M505,442 C505,471 315,471 315,500" marker-end="url(#arr)"/><path class="map-edge" d="M395,527 L425,527" marker-end="url(#arr)"/><g class="map-comp neutral" data-comp="client"><rect x="45" y="52" width="160" height="54" rx="8"/><text class="map-label" x="125" y="83">Client</text></g><a class="map-comp" href="notes/cdn-content-delivery-network.html" data-comp="cdn"><title>CDN</title><rect x="235" y="52" width="160" height="54" rx="8"/><text class="map-label" x="315" y="76">CDN</text><text class="map-count" x="315" y="98">1 note</text></a><a class="map-comp" href="notes/pre-signed-urls.html" data-comp="blob"><title>Blob storage</title><rect x="425" y="52" width="160" height="54" rx="8"/><text class="map-label" x="505" y="76">Blob storage</text><text class="map-count" x="505" y="98">1 note</text></a><a class="map-comp" href="notes/websockets-vs-sse-vs-api-polling.html" data-comp="realtime"><title>Real-time updates</title><rect x="615" y="52" width="160" height="54" rx="8"/><text class="map-label" x="695" y="68">Real-time</text><text class="map-label" x="695" y="84">updates</text><text class="map-count" x="695" y="98">2 notes</text></a><a class="map-comp" href="notes/load-balancer.html" data-comp="lb"><title>Load balancer</title><rect x="45" y="164" width="160" height="54" rx="8"/><text class="map-label" x="125" y="188">Load balancer</text><text class="map-count" x="125" y="210">3 notes</text></a><a class="map-comp" href="notes/api-gateway.html" data-comp="gateway"><title>API gateway</title><rect x="235" y="164" width="160" height="54" rx="8"/><text class="map-label" x="315" y="188">API gateway</text><text class="map-count" x="315" y="210">3 notes</text></a><a class="map-comp" href="notes/api-rate-limiting.html" data-comp="ratelimit"><title>Rate limiting</title><rect x="425" y="164" width="160" height="54" rx="8"/><text class="map-label" x="505" y="188">Rate limiting</text><text class="map-count" x="505" y="210">1 note</text></a><a class="map-comp" href="notes/api-authentication.html" data-comp="auth"><title>Authentication</title><rect x="615" y="164" width="160" height="54" rx="8"/><text class="map-label" x="695" y="188">Authentication</text><text class="map-count" x="695" y="210">2 notes</text></a><a class="map-comp" href="notes/horizontal-scaling.html" data-comp="app"><title>App servers</title><rect x="45" y="276" width="160" height="54" rx="8"/><text class="map-label" x="125" y="300">App servers</text><text class="map-count" x="125" y="322">3 notes</text></a><a class="map-comp" href="notes/api-design.html" data-comp="api"><title>API design</title><rect x="235" y="276" width="160" height="54" rx="8"/><text class="map-label" x="315" y="300">API design</text><text class="map-count" x="315" y="322">5 notes</text></a><a class="map-comp" href="notes/api-retries.html" data-comp="resilience"><title>Resilience</title><rect x="425" y="276" width="160" height="54" rx="8"/><text class="map-label" x="505" y="300">Resilience</text><text class="map-count" x="505" y="322">4 notes</text></a><a class="map-comp" href="notes/distributed-configuration-management.html" data-comp="config"><title>Configuration</title><rect x="615" y="276" width="160" height="54" rx="8"/><text class="map-label" x="695" y="300">Configuration</text><text class="map-count" x="695" y="322">1 note</text></a><a class="map-comp" href="notes/message-queues.html" data-comp="queue"><title>Message queue</title><rect x="45" y="388" width="160" height="54" rx="8"/><text class="map-label" x="125" y="412">Message queue</text><text class="map-count" x="125" y="434">2 notes</text></a><a class="map-comp" href="notes/event-driven-system.html" data-comp="events"><title>Event-driven</title><rect x="235" y="388" width="160" height="54" rx="8"/><text class="map-label" x="315" y="412">Event-driven</text><text class="map-count" x="315" y="434">1 note</text></a><a class="map-comp" href="notes/batch-processing-vs-stream-processing.html" data-comp="processing"><title>Batch / stream</title><rect x="425" y="388" width="160" height="54" rx="8"/><text class="map-label" x="505" y="412">Batch / stream</text><text class="map-count" x="505" y="434">2 notes</text></a><a class="map-comp" href="notes/distributed-transactions.html" data-comp="txn"><title>Distributed transactions</title><rect x="615" y="388" width="160" height="54" rx="8"/><text class="map-label" x="695" y="404">Distributed</text><text class="map-label" x="695" y="420">transactions</text><text class="map-count" x="695" y="434">2 notes</text></a><a class="map-comp" href="notes/caching.html" data-comp="cache"><title>Cache</title><rect x="45" y="500" width="160" height="54" rx="8"/><text class="map-label" x="125" y="524">Cache</text><text class="map-count" x="125" y="546">4 notes</text></a><a class="map-comp" href="notes/database.html" data-comp="db"><title>Database</title><rect x="235" y="500" width="160" height="54" rx="8"/><text class="map-label" x="315" y="524">Database</text><text class="map-count" x="315" y="546">9 notes</text></a><a class="map-comp" href="notes/database-sharding.html" data-comp="dbscale"><title>Scaling the DB</title><rect x="425" y="500" width="160" height="54" rx="8"/><text class="map-label" x="505" y="524">Scaling the DB</text><text class="map-count" x="505" y="546">5 notes</text></a><a class="map-comp" href="notes/search-systems.html" data-comp="search"><title>Search</title><rect x="615" y="500" width="160" height="54" rx="8"/><text class="map-label" x="695" y="524">Search</text><text class="map-count" x="695" y="546">3 notes</text></a><a class="map-comp" href="notes/latency.html" data-comp="latency"><title>Latency</title><rect x="830" y="52" width="160" height="44" rx="8"/><text class="map-label" x="910" y="78">Latency</text></a><a class="map-comp" href="notes/throughput.html" data-comp="throughput"><title>Throughput</title><rect x="830" y="156" width="160" height="44" rx="8"/><text class="map-label" x="910" y="182">Throughput</text></a><a class="map-comp" href="notes/availability.html" data-comp="availability"><title>Availability</title><rect x="830" y="260" width="160" height="44" rx="8"/><text class="map-label" x="910" y="286">Availability</text></a><a class="map-comp" href="notes/consistency.html" data-comp="consistency"><title>Consistency</title><rect x="830" y="364" width="160" height="44" rx="8"/><text class="map-label" x="910" y="390">Consistency</text></a><a class="map-comp" href="notes/scalability.html" data-comp="scalability"><title>Scalability</title><rect x="830" y="468" width="160" height="44" rx="8"/><text class="map-label" x="910" y="494">Scalability</text></a></svg></div>
+  <aside class="map-panel" id="map-panel" aria-live="polite"><p class="muted panel-hint">Select a component to see its notes, when to use it and related trade-offs.</p></aside>
+</div>
+<div class="map-list"><section class="ml-layer"><h3>Clients &amp; edge</h3><ul><li><span class="muted">Client</span></li><li><a href="notes/cdn-content-delivery-network.html" data-comp="cdn">CDN</a><span class="muted">1</span></li><li><a href="notes/pre-signed-urls.html" data-comp="blob">Blob storage</a><span class="muted">1</span></li><li><a href="notes/websockets-vs-sse-vs-api-polling.html" data-comp="realtime">Real-time updates</a><span class="muted">2</span></li></ul></section><section class="ml-layer"><h3>Entry point</h3><ul><li><a href="notes/load-balancer.html" data-comp="lb">Load balancer</a><span class="muted">3</span></li><li><a href="notes/api-gateway.html" data-comp="gateway">API gateway</a><span class="muted">3</span></li><li><a href="notes/api-rate-limiting.html" data-comp="ratelimit">Rate limiting</a><span class="muted">1</span></li><li><a href="notes/api-authentication.html" data-comp="auth">Authentication</a><span class="muted">2</span></li></ul></section><section class="ml-layer"><h3>Services</h3><ul><li><a href="notes/horizontal-scaling.html" data-comp="app">App servers</a><span class="muted">3</span></li><li><a href="notes/api-design.html" data-comp="api">API design</a><span class="muted">5</span></li><li><a href="notes/api-retries.html" data-comp="resilience">Resilience</a><span class="muted">4</span></li><li><a href="notes/distributed-configuration-management.html" data-comp="config">Configuration</a><span class="muted">1</span></li></ul></section><section class="ml-layer"><h3>Async processing</h3><ul><li><a href="notes/message-queues.html" data-comp="queue">Message queue</a><span class="muted">2</span></li><li><a href="notes/event-driven-system.html" data-comp="events">Event-driven</a><span class="muted">1</span></li><li><a href="notes/batch-processing-vs-stream-processing.html" data-comp="processing">Batch / stream</a><span class="muted">2</span></li><li><a href="notes/distributed-transactions.html" data-comp="txn">Distributed transactions</a><span class="muted">2</span></li></ul></section><section class="ml-layer"><h3>Data</h3><ul><li><a href="notes/caching.html" data-comp="cache">Cache</a><span class="muted">4</span></li><li><a href="notes/database.html" data-comp="db">Database</a><span class="muted">9</span></li><li><a href="notes/database-sharding.html" data-comp="dbscale">Scaling the DB</a><span class="muted">5</span></li><li><a href="notes/search-systems.html" data-comp="search">Search</a><span class="muted">3</span></li></ul></section><section class="ml-layer"><h3>Cross-cutting</h3><ul><li><a href="notes/latency.html" data-comp="latency">Latency</a></li><li><a href="notes/throughput.html" data-comp="throughput">Throughput</a></li><li><a href="notes/availability.html" data-comp="availability">Availability</a></li><li><a href="notes/consistency.html" data-comp="consistency">Consistency</a></li><li><a href="notes/scalability.html" data-comp="scalability">Scalability</a></li></ul></section></div>
+<div hidden id="map-panels"><template data-comp="client">
+  <div class="panel-kicker">Clients &amp; edge</div>
+  <h2>Client</h2>
+  <p class="muted">Browser, mobile app or another service.</p>
+  
+  
+  
+</template><template data-comp="cdn">
+  <div class="panel-kicker">Clients &amp; edge</div>
+  <h2>CDN</h2>
+  <p><a class="panel-main" href="notes/cdn-content-delivery-network.html" data-note="notes/cdn-content-delivery-network.html">CDN - Content Delivery Network</a> <span class="badge m-growing est" title="Growing (estimated): ~97 words of own writing, well connected"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></p><p class="panel-ex">Spread out servers that store copies of content. Page load will be faster as there will be a server closer to the user's location, usually. These usually store and cache content like…</p>
+  
+  
+  
+</template><template data-comp="blob">
+  <div class="panel-kicker">Clients &amp; edge</div>
+  <h2>Blob storage</h2>
+  <p><a class="panel-main" href="notes/pre-signed-urls.html" data-note="notes/pre-signed-urls.html">Pre-signed urls</a> <span class="badge m-growing est" title="Growing (estimated): ~46 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></p><p class="panel-ex">Pre signed urls rather than streaming through api servers with bigger timeouts. This frees servers to do other things, this is supposedly a secure way to get clients direct access to blob…</p>
+  
+  
+  
+</template><template data-comp="realtime">
+  <div class="panel-kicker">Clients &amp; edge</div>
+  <h2>Real-time updates</h2>
+  <p><a class="panel-main" href="notes/websockets-vs-sse-vs-api-polling.html" data-note="notes/websockets-vs-sse-vs-api-polling.html">WebSockets vs SSE vs API polling</a> <span class="badge m-growing est" title="Growing (estimated): ~84 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></p><p class="panel-ex">WebSockets is 2 way open connection. SSE (Server Sent Events) is one way. API usually have a timeout of 30-60 seconds, configured by an outside system, often. If the operation you're doing…</p>
+  
+  <h3>Related notes</h3><ul class="panel-list"><li><a href="notes/websocket.html" data-note="notes/websocket.html">WebSocket</a> <span class="badge m-seedling est" title="Seedling (estimated): a single line, well connected"><span aria-hidden="true">🌱</span><span class="sr">Seedling</span></span></li></ul>
+  <h3>Trade-offs</h3><ul class="panel-list"><li><a href="tradeoffs.html#websockets-vs-sse-vs-api-polling">WebSockets vs SSE vs API polling</a></li></ul>
+</template><template data-comp="lb">
+  <div class="panel-kicker">Entry point</div>
+  <h2>Load balancer</h2>
+  <p><a class="panel-main" href="notes/load-balancer.html" data-note="notes/load-balancer.html">Load Balancer</a> <span class="badge m-established est" title="Established (estimated): ~149 words of own writing"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></p><p class="panel-ex">Single point of contact for user requests. It does health checks for all servers to know if some have issues. Distribution: Round Robin: simple and sequential. IP hashing: allows the same user…</p>
+  
+  <h3>Related notes</h3><ul class="panel-list"><li><a href="notes/reverse-proxy-vs-api-gateway-vs-load-balancer.html" data-note="notes/reverse-proxy-vs-api-gateway-vs-load-balancer.html">Reverse proxy vs API gateway vs load balancer</a> <span class="badge m-established est" title="Established (estimated): ~432 words of own writing, ~27 quoted, includes a diagram or table"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></li><li><a href="notes/stateless-vs-sticky-sessions.html" data-note="notes/stateless-vs-sticky-sessions.html">Stateless vs Sticky sessions</a> <span class="badge m-growing est" title="Growing (estimated): ~37 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li></ul>
+  <h3>Trade-offs</h3><ul class="panel-list"><li><a href="tradeoffs.html#reverse-proxy-vs-api-gateway-vs-load-balancer">Reverse proxy vs API gateway vs load balancer</a></li><li><a href="tradeoffs.html#stateless-vs-sticky-sessions">Stateless vs Sticky sessions</a></li></ul>
+</template><template data-comp="gateway">
+  <div class="panel-kicker">Entry point</div>
+  <h2>API gateway</h2>
+  <p><a class="panel-main" href="notes/api-gateway.html" data-note="notes/api-gateway.html">API Gateway</a> <span class="badge m-growing est" title="Growing (estimated): ~15 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></p><p class="panel-ex">Api gateways can combine results from different apis into one. Routing: https://www.hellointerview.com/learn/system-design/deep-dives/api-gateway.</p>
+  
+  <h3>Related notes</h3><ul class="panel-list"><li><a href="notes/reverse-proxy.html" data-note="notes/reverse-proxy.html">Reverse proxy</a> <span class="badge m-seedling est" title="Seedling (estimated): a single line"><span aria-hidden="true">🌱</span><span class="sr">Seedling</span></span></li><li><a href="notes/forward-proxy-vs-reverse-proxy-vs-api-gateway.html" data-note="notes/forward-proxy-vs-reverse-proxy-vs-api-gateway.html">Forward proxy vs Reverse proxy vs API Gateway</a> <span class="badge m-established est" title="Established (estimated): ~243 words of own writing, includes a diagram or table"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></li></ul>
+  <h3>Trade-offs</h3><ul class="panel-list"><li><a href="tradeoffs.html#forward-proxy-vs-reverse-proxy-vs-api-gateway">Forward proxy vs Reverse proxy vs API Gateway</a></li><li><a href="tradeoffs.html#reverse-proxy-vs-api-gateway-vs-load-balancer">Reverse proxy vs API gateway vs load balancer</a></li></ul>
+</template><template data-comp="ratelimit">
+  <div class="panel-kicker">Entry point</div>
+  <h2>Rate limiting</h2>
+  <p><a class="panel-main" href="notes/api-rate-limiting.html" data-note="notes/api-rate-limiting.html">API Rate limiting</a> <span class="badge m-growing est" title="Growing (estimated): ~231 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></p><p class="panel-ex">Django rate limiter? In memory per server. You don't get a global picture tho. Or separate service but extra latency. Most common is to have it with the api gateway. Rate limiting…</p>
+  
+  
+  
+</template><template data-comp="auth">
+  <div class="panel-kicker">Entry point</div>
+  <h2>Authentication</h2>
+  <p><a class="panel-main" href="notes/api-authentication.html" data-note="notes/api-authentication.html">API Authentication</a> <span class="badge m-growing est" title="Growing (estimated): ~45 words of own writing, well connected"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></p><p class="panel-ex">Maybe not straight user ID in api. Jwt json web token contains signed json data about the user, like what role they have. Every request contains a signature that the server can…</p>
+  
+  <h3>Related notes</h3><ul class="panel-list"><li><a href="notes/managing-sessions.html" data-note="notes/managing-sessions.html">Managing sessions</a> <span class="badge m-growing est" title="Growing (estimated): ~108 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li></ul>
+  
+</template><template data-comp="app">
+  <div class="panel-kicker">Services</div>
+  <h2>App servers</h2>
+  <p><a class="panel-main" href="notes/horizontal-scaling.html" data-note="notes/horizontal-scaling.html">Horizontal scaling</a> <span class="badge m-seedling est" title="Seedling (estimated): a single line"><span aria-hidden="true">🌱</span><span class="sr">Seedling</span></span></p><p class="panel-ex">Horizontal scaling only works if servers are stateless aka, server needs to treat the request as if the user came in here for the very first time.</p>
+  
+  <h3>Related notes</h3><ul class="panel-list"><li><a href="notes/scalability.html" data-note="notes/scalability.html">Scalability</a> <span class="badge m-growing est" title="Growing (estimated): ~85 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li><li><a href="notes/adding-a-dependency-to-a-service-adds-network-overhead.html" data-note="notes/adding-a-dependency-to-a-service-adds-network-overhead.html">Adding a dependency to a service adds network overhead</a> <span class="badge m-growing est" title="Growing (estimated): ~21 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li></ul>
+  
+</template><template data-comp="api">
+  <div class="panel-kicker">Services</div>
+  <h2>API design</h2>
+  <p><a class="panel-main" href="notes/api-design.html" data-note="notes/api-design.html">API Design</a> <span class="badge m-seedling est" title="Seedling (estimated): only links so far, well connected"><span aria-hidden="true">🌱</span><span class="sr">Seedling</span></span></p>
+  
+  <h3>Related notes</h3><ul class="panel-list"><li><a href="notes/rest-vs-graphql.html" data-note="notes/rest-vs-graphql.html">REST vs GraphQL</a> <span class="badge m-growing est" title="Growing (estimated): ~24 words of own writing, ~52 quoted, well connected"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li><li><a href="notes/graphql.html" data-note="notes/graphql.html">GraphQL</a> <span class="badge m-growing est" title="Growing (estimated): ~47 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li><li><a href="notes/rpc-methods.html" data-note="notes/rpc-methods.html">RPC methods</a> <span class="badge m-growing est" title="Growing (estimated): ~53 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li><li><a href="notes/rest-framework.html" data-note="notes/rest-framework.html">REST framework</a> <span class="badge m-growing est" title="Growing (estimated): ~59 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li></ul>
+  <h3>Trade-offs</h3><ul class="panel-list"><li><a href="tradeoffs.html#rest-vs-graphql">REST vs GraphQL</a></li></ul>
+</template><template data-comp="resilience">
+  <div class="panel-kicker">Services</div>
+  <h2>Resilience</h2>
+  <p><a class="panel-main" href="notes/api-retries.html" data-note="notes/api-retries.html">API retries</a> <span class="badge m-growing est" title="Growing (estimated): ~18 words of own writing, ~45 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></p><p class="panel-ex">Good to handle the odd error. Beware of overloading already failing services with even more load. API Circuit breakers will help.</p>
+  
+  <h3>Related notes</h3><ul class="panel-list"><li><a href="notes/api-circuit-breakers.html" data-note="notes/api-circuit-breakers.html">API Circuit breakers</a> <span class="badge m-growing est" title="Growing (estimated): ~44 words of own writing, ~48 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li><li><a href="notes/api-short-vs-long-timeouts.html" data-note="notes/api-short-vs-long-timeouts.html">API short vs long timeouts</a> <span class="badge m-growing est" title="Growing (estimated): ~16 words of own writing, ~48 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li><li><a href="notes/idempotency-key.html" data-note="notes/idempotency-key.html">Idempotency key</a> <span class="badge m-growing est" title="Growing (estimated): ~32 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li></ul>
+  <h3>Trade-offs</h3><ul class="panel-list"><li><a href="tradeoffs.html#api-short-vs-long-timeouts">API short vs long timeouts</a></li></ul>
+</template><template data-comp="config">
+  <div class="panel-kicker">Services</div>
+  <h2>Configuration</h2>
+  <p><a class="panel-main" href="notes/distributed-configuration-management.html" data-note="notes/distributed-configuration-management.html">Distributed configuration management</a> <span class="badge m-growing est" title="Growing (estimated): ~54 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></p><p class="panel-ex">Distributed configuration management, zookeeper is a bit outdated but good for this. Example: The API Gateway keeps an open connection to config server and pushes changes straight away. Other not as good…</p>
+  
+  
+  
+</template><template data-comp="queue">
+  <div class="panel-kicker">Async processing</div>
+  <h2>Message queue</h2>
+  <p><a class="panel-main" href="notes/message-queues.html" data-note="notes/message-queues.html">Message queues</a> <span class="badge m-established est" title="Established (estimated): ~410 words of own writing, ~75 quoted, 12 sections"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></p><p class="panel-ex">operations too long for a live server, get feedback to users quickly. reduce load on a live server. when you want the ability to scale differently for different tasks (ie retrievers need…</p>
+  <div class="panel-when"><h3>When to use system queues</h3><ul>
+<li>operations too long for a live server, get feedback to users quickly</li>
+<li>reduce load on a live server</li>
+<li>when you want the ability to scale differently for different tasks (ie retrievers need less memory than collectors in dogs)</li>
+<li>reliability: keep messages to be processed in queue until workers are healthy again</li>
+</ul>
+</div>
+  <h3>Related notes</h3><ul class="panel-list"><li><a href="notes/kafka-vs-sqs.html" data-note="notes/kafka-vs-sqs.html">Kafka vs SQS</a> <span class="badge m-growing est" title="Growing (estimated): ~45 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li></ul>
+  <h3>Trade-offs</h3><ul class="panel-list"><li><a href="tradeoffs.html#kafka-vs-sqs">Kafka vs SQS</a></li></ul>
+</template><template data-comp="events">
+  <div class="panel-kicker">Async processing</div>
+  <h2>Event-driven</h2>
+  <p><a class="panel-main" href="notes/event-driven-system.html" data-note="notes/event-driven-system.html">Event Driven System</a> <span class="badge m-growing est" title="Growing (estimated): ~26 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></p><p class="panel-ex">Dealing with important events that needs to be stored forever (ie refund events) When you need replayability of events (reprocess historical data) Real-time data processing.</p>
+  <div class="panel-when"><h3>When to use them</h3><ul>
+<li>Dealing with important events that needs to be stored forever (ie refund events)</li>
+<li>When you need replayability of events (reprocess historical data)</li>
+<li>Real-time data processing</li>
+</ul>
+</div>
+  
+  
+</template><template data-comp="processing">
+  <div class="panel-kicker">Async processing</div>
+  <h2>Batch / stream</h2>
+  <p><a class="panel-main" href="notes/batch-processing-vs-stream-processing.html" data-note="notes/batch-processing-vs-stream-processing.html">Batch processing vs stream processing</a> <span class="badge m-growing est" title="Growing (estimated): ~27 words of own writing, ~39 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></p><p class="panel-ex">In old existing product data, it was stream processing, processing one spider item at a time. whereas in dogs, it was batch processing, processing 'big' sqlite files.</p>
+  
+  <h3>Related notes</h3><ul class="panel-list"><li><a href="notes/cron-jobs-to-fix-data-vs-ttl.html" data-note="notes/cron-jobs-to-fix-data-vs-ttl.html">Cron jobs to fix data vs TTL</a> <span class="badge m-growing est" title="Growing (estimated): ~21 words of own writing, ~36 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li></ul>
+  <h3>Trade-offs</h3><ul class="panel-list"><li><a href="tradeoffs.html#cron-jobs-to-fix-data-vs-ttl">Cron jobs to fix data vs TTL</a></li><li><a href="tradeoffs.html#batch-processing-vs-stream-processing">Batch processing vs stream processing</a></li></ul>
+</template><template data-comp="txn">
+  <div class="panel-kicker">Async processing</div>
+  <h2>Distributed transactions</h2>
+  <p><a class="panel-main" href="notes/distributed-transactions.html" data-note="notes/distributed-transactions.html">Distributed transactions</a> <span class="badge m-growing est" title="Growing (estimated): ~110 words of own writing, well connected"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></p><p class="panel-ex">2 phase commit and saga patterns are the most common ways to solve this. You can have a coordinator plan across services and commit all at once, but this is fragile if…</p>
+  
+  <h3>Related notes</h3><ul class="panel-list"><li><a href="notes/saga-choreography-vs-saga-orchestration.html" data-note="notes/saga-choreography-vs-saga-orchestration.html">Saga choreography vs saga orchestration</a> <span class="badge m-growing est" title="Growing (estimated): ~31 words of own writing, ~50 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li></ul>
+  <h3>Trade-offs</h3><ul class="panel-list"><li><a href="tradeoffs.html#saga-choreography-vs-saga-orchestration">Saga choreography vs saga orchestration</a></li></ul>
+</template><template data-comp="cache">
+  <div class="panel-kicker">Data</div>
+  <h2>Cache</h2>
+  <p><a class="panel-main" href="notes/caching.html" data-note="notes/caching.html">Caching</a> <span class="badge m-established est" title="Established (estimated): ~291 words of own writing, ~108 quoted, 8 sections, well connected"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></p><p class="panel-ex">Cache = trade off speed vs freshness. You can also use the CDN as a cache for api results. Short term. Ok if only a few. Consider how often it changes, how…</p>
+  <div class="panel-when"><h3>When to use caching</h3><aside class="external" data-kind="Video">
+<div class="ext-src">From <a class="ext-chip" href="sources/youtube-hello-interview-caching-in-system-design-interviews-w-meta-staff-engineer.html" data-note="sources/youtube-hello-interview-caching-in-system-design-interviews-w-meta-staff-engineer.html"><span class="ext-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="2"/><path d="M6.5 6v4l3.5-2z" fill="currentColor" stroke="none"/></svg></span>Caching in System Design Interviews w/ Meta Staff Engineer</a></div>
+<ul>
+<li>read heavy workload (millions)</li>
+<li>expensive queries (like catalog post processing)</li>
+<li>when database CPU is high, reduce load</li>
+<li>latency (when you need it to be faster )</li>
+</ul>
+</aside>
+</div>
+  <h3>Related notes</h3><ul class="panel-list"><li><a href="notes/caching-patterns.html" data-note="notes/caching-patterns.html">Caching patterns</a> <span class="badge m-established est" title="Established (estimated): ~282 words of own writing, ~175 quoted, includes a diagram or table"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></li><li><a href="notes/redis.html" data-note="notes/redis.html">Redis</a> <span class="badge m-growing est" title="Growing (estimated): ~80 words of own writing, includes a diagram or table"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li><li><a href="notes/redis-vs-memcached.html" data-note="notes/redis-vs-memcached.html">Redis vs Memcached</a> <span class="badge m-growing est" title="Growing (estimated): ~24 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li></ul>
+  <h3>Trade-offs</h3><ul class="panel-list"><li><a href="tradeoffs.html#redis-vs-memcached">Redis vs Memcached</a></li></ul>
+</template><template data-comp="db">
+  <div class="panel-kicker">Data</div>
+  <h2>Database</h2>
+  <p><a class="panel-main" href="notes/database.html" data-note="notes/database.html">Database</a> <span class="badge m-seedling est" title="Seedling (estimated): only links so far, well connected"><span aria-hidden="true">🌱</span><span class="sr">Seedling</span></span></p>
+  
+  <h3>Related notes</h3><ul class="panel-list"><li><a href="notes/how-to-choose-a-database.html" data-note="notes/how-to-choose-a-database.html">How to choose a database</a> <span class="badge m-established est" title="Established (estimated): ~106 words of own writing, ~19 quoted, 4 sections, includes a diagram or table"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></li><li><a href="notes/access-pattern-driven-modelling.html" data-note="notes/access-pattern-driven-modelling.html">Access pattern driven modelling</a> <span class="badge m-growing est" title="Growing (estimated): ~36 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li><li><a href="notes/relational-database.html" data-note="notes/relational-database.html">Relational Database</a> <span class="badge m-growing est" title="Growing (estimated): ~0 words of own writing, ~205 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li><li><a href="notes/postgresql.html" data-note="notes/postgresql.html">PostgreSQL</a> <span class="badge m-growing est" title="Growing (estimated): ~10 words of own writing, ~186 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li><li><a href="notes/dynamodb.html" data-note="notes/dynamodb.html">DynamoDB</a> <span class="badge m-seedling est" title="Seedling (estimated): a single line"><span aria-hidden="true">🌱</span><span class="sr">Seedling</span></span></li><li><a href="notes/cassandra-database.html" data-note="notes/cassandra-database.html">Cassandra Database</a> <span class="badge m-growing est" title="Growing (estimated): ~34 words of own writing, ~45 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li><li><a href="notes/aws-aurora.html" data-note="notes/aws-aurora.html">AWS Aurora</a> <span class="badge m-established est" title="Established (estimated): ~131 words of own writing, ~171 quoted, 4 sections"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></li><li><a href="notes/database-types.html" data-note="notes/database-types.html">Database types</a> <span class="badge m-seedling est" title="Seedling (estimated): a single diagram, includes a diagram or table"><span aria-hidden="true">🌱</span><span class="sr">Seedling</span></span></li></ul>
+  <h3>Trade-offs</h3><ul class="panel-list"><li><a href="tradeoffs.html#postgresql-vs-mysql">PostgreSQL vs MySQL</a></li><li><a href="tradeoffs.html#documentdb-vs-dynamodb">DocumentDB vs DynamoDB</a></li><li><a href="tradeoffs.html#postgresql-vs-dynamodb">PostgreSQL vs DynamoDB</a></li></ul>
+</template><template data-comp="dbscale">
+  <div class="panel-kicker">Data</div>
+  <h2>Scaling the DB</h2>
+  <p><a class="panel-main" href="notes/database-sharding.html" data-note="notes/database-sharding.html">Database Sharding</a> <span class="badge m-established est" title="Established (estimated): ~311 words of own writing, ~15 quoted, 10 sections, well connected"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></p><p class="panel-ex">Write-heavy: Too much data for 1 instance (storage or write per second) Read-heavy: when read replicas or caching are not enough. Global queries will be slower. Complexity to operate and keep data…</p>
+  <div class="panel-when"><h3>When to use sharding</h3><ul>
+<li>Write-heavy: Too much data for 1 instance (storage or write per second)</li>
+<li>Read-heavy: when read replicas or caching are not enough</li>
+</ul>
+<h2 id="trade-offs">Trade offs</h2>
+<ul>
+<li>Global queries will be slower</li>
+<li>Complexity to operate and keep data consistent</li>
+</ul>
+</div>
+  <h3>Related notes</h3><ul class="panel-list"><li><a href="notes/database-replication.html" data-note="notes/database-replication.html">Database Replication</a> <span class="badge m-seedling est" title="Seedling (estimated): a single line"><span aria-hidden="true">🌱</span><span class="sr">Seedling</span></span></li><li><a href="notes/database-index.html" data-note="notes/database-index.html">Database index</a> <span class="badge m-growing est" title="Growing (estimated): ~45 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li><li><a href="notes/connection-pooling.html" data-note="notes/connection-pooling.html">Connection Pooling</a> <span class="badge m-growing est" title="Growing (estimated): ~11 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li><li><a href="notes/sync-between-databases.html" data-note="notes/sync-between-databases.html">Sync between databases</a> <span class="badge m-growing est" title="Growing (estimated): ~85 words of own writing, ~32 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li></ul>
+  
+</template><template data-comp="search">
+  <div class="panel-kicker">Data</div>
+  <h2>Search</h2>
+  <p><a class="panel-main" href="notes/search-systems.html" data-note="notes/search-systems.html">Search systems</a> <span class="badge m-growing est" title="Growing (estimated): ~37 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></p><p class="panel-ex">Postgres is fine to begin with for basic search. Select where like term. When would somethint else be more relevant ? Wildcard search are slow tho, it'll scan the whole db. But…</p>
+  
+  <h3>Related notes</h3><ul class="panel-list"><li><a href="notes/elasticsearch.html" data-note="notes/elasticsearch.html">ElasticSearch</a> <span class="badge m-growing est" title="Growing (estimated): ~74 words of own writing, well connected"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li><li><a href="notes/search-optimised-database.html" data-note="notes/search-optimised-database.html">Search optimised database</a> <span class="badge m-growing est" title="Growing (estimated): ~73 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li></ul>
+  
+</template><template data-comp="latency">
+  <div class="panel-kicker">Cross-cutting</div>
+  <h2>Latency</h2>
+  <p><a class="panel-main" href="notes/latency.html" data-note="notes/latency.html">Latency</a> <span class="badge m-seedling est" title="Seedling (estimated): a single line"><span aria-hidden="true">🌱</span><span class="sr">Seedling</span></span></p><p class="panel-ex">Latency is the time to perform some action or to produce some result.</p>
+  
+  
+  
+</template><template data-comp="throughput">
+  <div class="panel-kicker">Cross-cutting</div>
+  <h2>Throughput</h2>
+  <p><a class="panel-main" href="notes/throughput.html" data-note="notes/throughput.html">Throughput</a> <span class="badge m-growing est" title="Growing (estimated): ~22 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></p><p class="panel-ex">Throughput is the number of such actions or results per unit of time. Generally, you should aim for maximal throughput with acceptable latency.</p>
+  
+  
+  
+</template><template data-comp="availability">
+  <div class="panel-kicker">Cross-cutting</div>
+  <h2>Availability</h2>
+  <p><a class="panel-main" href="notes/availability.html" data-note="notes/availability.html">Availability</a> <span class="badge m-growing est" title="Growing (estimated): ~512 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></p><p class="panel-ex">Availability patterns. There are two main patterns to support high availability: fail-over and replication. Fail-over. Active-passive. With active-passive fail-over, heartbeats are sent between the active and the passive server on standby. If…</p>
+  
+  
+  <h3>Trade-offs</h3><ul class="panel-list"><li><a href="tradeoffs.html#consistency-vs-availability">Consistency vs Availability</a></li></ul>
+</template><template data-comp="consistency">
+  <div class="panel-kicker">Cross-cutting</div>
+  <h2>Consistency</h2>
+  <p><a class="panel-main" href="notes/consistency.html" data-note="notes/consistency.html">Consistency</a> <span class="badge m-growing est" title="Growing (estimated): ~142 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></p><p class="panel-ex">Weak consistency. After a write, reads may or may not see it. A best effort approach is taken. This approach is seen in systems such as memcached. Weak consistency works well in…</p>
+  
+  <h3>Related notes</h3><ul class="panel-list"><li><a href="notes/consistency-vs-availability.html" data-note="notes/consistency-vs-availability.html">Consistency vs Availability</a> <span class="badge m-growing est" title="Growing (estimated): ~71 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li><li><a href="notes/database-acid.html" data-note="notes/database-acid.html">Database ACID</a> <span class="badge m-growing est" title="Growing (estimated): ~0 words of own writing, ~63 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li></ul>
+  <h3>Trade-offs</h3><ul class="panel-list"><li><a href="tradeoffs.html#consistency-vs-availability">Consistency vs Availability</a></li></ul>
+</template><template data-comp="scalability">
+  <div class="panel-kicker">Cross-cutting</div>
+  <h2>Scalability</h2>
+  <p><a class="panel-main" href="notes/scalability.html" data-note="notes/scalability.html">Scalability</a> <span class="badge m-growing est" title="Growing (estimated): ~85 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></p><p class="panel-ex">A service is scalable if it results in increased performance in a manner proportional to resources added. Generally, increasing performance means serving more units of work, but it can also be to…</p>
+  
+  <h3>Related notes</h3><ul class="panel-list"><li><a href="notes/horizontal-scaling.html" data-note="notes/horizontal-scaling.html">Horizontal scaling</a> <span class="badge m-seedling est" title="Seedling (estimated): a single line"><span aria-hidden="true">🌱</span><span class="sr">Seedling</span></span></li></ul>
+  
+</template><template data-prob="p-real-time-updates">
+  <div class="panel-kicker">Common problem</div>
+  <h2>Real time updates</h2>
+  
+  <h3>Reach for</h3><ul class="panel-list"><li><a href="#realtime" data-select="realtime">Real-time updates</a></li></ul>
+  <h3>Notes</h3><ul class="panel-list"><li><a href="notes/websocket.html" data-note="notes/websocket.html">WebSocket</a> <span class="badge m-seedling est" title="Seedling (estimated): a single line, well connected"><span aria-hidden="true">🌱</span><span class="sr">Seedling</span></span></li><li><a href="notes/websockets-vs-sse-vs-api-polling.html" data-note="notes/websockets-vs-sse-vs-api-polling.html">WebSockets vs SSE vs API polling</a> <span class="badge m-growing est" title="Growing (estimated): ~84 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li></ul>
+</template><template data-prob="p-long-running-tasks">
+  <div class="panel-kicker">Common problem</div>
+  <h2>Long running tasks</h2>
+  
+  <h3>Reach for</h3><ul class="panel-list"><li><a href="#queue" data-select="queue">Message queue</a></li></ul>
+  <h3>Notes</h3><ul class="panel-list"><li><a href="notes/message-queues.html" data-note="notes/message-queues.html">Message queues</a> <span class="badge m-established est" title="Established (estimated): ~410 words of own writing, ~75 quoted, 12 sections"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></li></ul>
+</template><template data-prob="p-data-contention">
+  <div class="panel-kicker">Common problem</div>
+  <h2>Data contention</h2>
+  
+  <h3>Reach for</h3><ul class="panel-list"><li><a href="#consistency" data-select="consistency">Consistency</a></li></ul>
+  <h3>Notes</h3><ul class="panel-list"><li><a href="notes/database-acid.html" data-note="notes/database-acid.html">Database ACID</a> <span class="badge m-growing est" title="Growing (estimated): ~0 words of own writing, ~63 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li></ul>
+</template><template data-prob="p-scaling-reads">
+  <div class="panel-kicker">Common problem</div>
+  <h2>Scaling reads</h2>
+  
+  <h3>Reach for</h3><ul class="panel-list"><li><a href="#cache" data-select="cache">Cache</a></li><li><a href="#dbscale" data-select="dbscale">Scaling the DB</a></li></ul>
+  <h3>Notes</h3><ul class="panel-list"><li><a href="notes/caching.html" data-note="notes/caching.html">Caching</a> <span class="badge m-established est" title="Established (estimated): ~291 words of own writing, ~108 quoted, 8 sections, well connected"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></li><li><a href="notes/database-replication.html" data-note="notes/database-replication.html">Database Replication</a> <span class="badge m-seedling est" title="Seedling (estimated): a single line"><span aria-hidden="true">🌱</span><span class="sr">Seedling</span></span></li></ul>
+</template><template data-prob="p-scaling-writes">
+  <div class="panel-kicker">Common problem</div>
+  <h2>Scaling writes</h2>
+  
+  <h3>Reach for</h3><ul class="panel-list"><li><a href="#dbscale" data-select="dbscale">Scaling the DB</a></li></ul>
+  <h3>Notes</h3><ul class="panel-list"><li><a href="notes/database-sharding.html" data-note="notes/database-sharding.html">Database Sharding</a> <span class="badge m-established est" title="Established (estimated): ~311 words of own writing, ~15 quoted, 10 sections, well connected"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></li></ul>
+</template><template data-prob="p-handling-large-blobs">
+  <div class="panel-kicker">Common problem</div>
+  <h2>Handling large blobs</h2>
+  
+  <h3>Reach for</h3><ul class="panel-list"><li><a href="#blob" data-select="blob">Blob storage</a></li></ul>
+  <h3>Notes</h3><ul class="panel-list"><li><a href="notes/pre-signed-urls.html" data-note="notes/pre-signed-urls.html">Pre-signed urls</a> <span class="badge m-growing est" title="Growing (estimated): ~46 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li></ul>
+</template><template data-prob="p-multi-step-process">
+  <div class="panel-kicker">Common problem</div>
+  <h2>Multi step process</h2>
+  
+  <h3>Reach for</h3><ul class="panel-list"><li><a href="#txn" data-select="txn">Distributed transactions</a></li></ul>
+  <h3>Notes</h3><ul class="panel-list"><li><a href="notes/saga-choreography-vs-saga-orchestration.html" data-note="notes/saga-choreography-vs-saga-orchestration.html">Saga choreography vs saga orchestration</a> <span class="badge m-growing est" title="Growing (estimated): ~31 words of own writing, ~50 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></li></ul>
+</template><template data-prob="p-proximity-based-services">
+  <div class="panel-kicker">Common problem</div>
+  <h2>Proximity based services</h2>
+  <p class="panel-ex">Something something geolocalisation Postgres has extensions for this</p>
+  
+  <p class="muted">Not written up yet.</p>
+</template></div>
+<section class="numbers" id="numbers">
+  <h2 class="sec-title">Numbers to know</h2>
+  <p class="muted">Rough orders of magnitude for back-of-the-envelope estimates. Each one links to the note it comes from.</p>
+  <div class="num-grid"><div class="num-group"><h3>Speed</h3><dl><div class="num"><dt>Memory vs disk reads</dt><dd><span class="num-val">≈10,000× faster</span><span class="num-detail">Why a cache in front of the database pays off.</span><a class="num-src" href="notes/caching.html" data-note="notes/caching.html">Caching</a></dd></div></dl></div><div class="num-group"><h3>Throughput</h3><dl><div class="num"><dt>Redis throughput</dt><dd><span class="num-val">≈100k req/s</span><span class="num-detail">Per instance, rough order of magnitude.</span><a class="num-src" href="notes/redis.html" data-note="notes/redis.html">Redis</a></dd></div><div class="num"><dt>PostgreSQL reads</dt><dd><span class="num-val">≈20k queries/s</span><span class="num-detail">Single instance.</span><a class="num-src" href="notes/postgresql.html" data-note="notes/postgresql.html">PostgreSQL</a></dd></div><div class="num"><dt>PostgreSQL writes</dt><dd><span class="num-val">≈5–10k writes/s</span><span class="num-detail">Single primary; beyond this consider sharding or a write-optimised store.</span><a class="num-src" href="notes/how-to-choose-a-database.html" data-note="notes/how-to-choose-a-database.html">How to choose a database</a></dd></div><div class="num"><dt>When DynamoDB starts to make sense</dt><dd><span class="num-val">&gt; 10k writes/s</span><span class="num-detail">Heavy writes with key-value access patterns.</span><a class="num-src" href="notes/postgresql-vs-dynamodb.html" data-note="notes/postgresql-vs-dynamodb.html">PostgreSQL vs DynamoDB</a></dd></div></dl></div><div class="num-group"><h3>Storage</h3><dl><div class="num"><dt>Single PostgreSQL gets uncomfortable</dt><dd><span class="num-val">≈100 GB – 1 TB</span><span class="num-detail">Maintenance, vacuum and backups get painful; technical limit is far higher.</span><a class="num-src" href="notes/postgresql.html" data-note="notes/postgresql.html">PostgreSQL</a></dd></div><div class="num"><dt>Aurora storage</dt><dd><span class="num-val">up to 128 TB</span><span class="num-detail">Grows automatically in 10 GB increments.</span><a class="num-src" href="notes/aws-aurora.html" data-note="notes/aws-aurora.html">AWS Aurora</a></dd></div><div class="num"><dt>One user row</dt><dd><span class="num-val">≈1 KB</span><span class="num-detail">Including overhead; raw fields are ~150 bytes (ids 8–16 B, email 30–60 B, bcrypt hash 60 B).</span><a class="num-src" href="notes/how-much-data-is-a-user-in-a-database-roughly.html" data-note="notes/how-much-data-is-a-user-in-a-database-roughly.html">How much data is a user in a database roughly</a></dd></div></dl></div></div>
+</section></main>
+  
+</div>
+<footer class="sitefoot"><p>Personal notes, shared as-is. Sourced passages link to their origin. Built from an Obsidian vault.</p></footer>
+</body>
+</html>

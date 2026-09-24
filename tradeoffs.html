@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trade-off explorer · Interview knowledge</title>
+<meta name="description" content="Comparisons and when-to-use guides">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+<link rel="stylesheet" href="assets/style.css">
+<script>try{var t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t;}catch(e){}</script>
+<script defer src="assets/app.js" data-root=""></script>
+</head>
+<body class="wide">
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <button class="icon-btn menu-btn hidden-btn" type="button" aria-label="Show all notes" aria-expanded="false" aria-controls="sidebar">☰</button>
+  <a class="brand" href="index.html"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M11 24.5 8.5 30M21 24.5 23.5 30" stroke="var(--accent)" stroke-width="2.2" stroke-linecap="round"/><rect x="1.5" y="2.5" width="29" height="22" rx="4" fill="var(--accent)"/><g fill="none" stroke="var(--bg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="9" width="6.5" height="6.5" rx="1.2"/><path d="M12.5 12.25c3 0 4.5 1.5 5.5 5"/></g><path d="M17.5 19.5c-.6-6.2 3.2-10.4 9-11 .5 6.3-3.3 10.6-9 11z" fill="var(--bg)"/></svg>Interview knowledge</a>
+  <nav class="mainnav" aria-label="Sections"><a href="index.html">Home</a><a href="map.html">System design map</a><a href="tradeoffs.html" aria-current="page">Trade-offs</a><a href="practice.html">Practice</a><a href="library.html">Library</a><a href="tags.html">Tags</a></nav>
+  <div class="search" role="search">
+    <input id="q" type="search" placeholder="Search notes…" autocomplete="off" aria-label="Search notes" aria-controls="results">
+    <kbd class="search-kbd">/</kbd>
+    <div id="results" class="results" hidden></div>
+  </div>
+  <button class="icon-btn theme-btn" type="button" title="Toggle dark mode">☾<span class="sr">Toggle dark mode</span></button>
+</header>
+<div class="shell no-sidebar">
+  
+  <main id="main" class="main"><nav class="mobile-nav" aria-label="Sections"><a href="index.html">Home</a><a href="map.html">System design map</a><a href="tradeoffs.html" aria-current="page">Trade-offs</a><a href="practice.html">Practice</a><a href="library.html">Library</a><a href="tags.html">Tags</a></nav>
+<header class="page-head"><h1>Trade-off explorer</h1><p class="lede">Interviewers look for trade-offs more than for the “right” answer. These are the comparisons from my notes, grouped by area. Filter by what the decision hinges on to drill a specific dimension.</p></header>
+<div class="filters" role="group" aria-label="Filter by deciding factor"><span class="lbl">Hinges on</span><button type="button" class="chip" data-factor="consistency" aria-pressed="false">consistency <span class="muted">6</span></button><button type="button" class="chip" data-factor="availability" aria-pressed="false">availability <span class="muted">5</span></button><button type="button" class="chip" data-factor="latency" aria-pressed="false">latency <span class="muted">8</span></button><button type="button" class="chip" data-factor="throughput" aria-pressed="false">throughput <span class="muted">1</span></button><button type="button" class="chip" data-factor="scalability" aria-pressed="false">scalability <span class="muted">6</span></button><button type="button" class="chip" data-factor="ordering" aria-pressed="false">ordering <span class="muted">1</span></button><button type="button" class="chip" data-factor="persistence" aria-pressed="false">persistence <span class="muted">3</span></button><button type="button" class="chip" data-factor="cost" aria-pressed="false">cost <span class="muted">5</span></button><button type="button" class="chip" data-factor="ops burden" aria-pressed="false">ops burden <span class="muted">9</span></button><button type="button" class="chip" data-factor="flexibility" aria-pressed="false">flexibility <span class="muted">5</span></button><button type="button" class="chip clear" hidden>clear</button></div>
+<nav class="group-nav" aria-label="Areas"><a href="#g-data">Data stores <span class="muted">9</span></a><a href="#g-messaging">Messaging &amp; events <span class="muted">3</span></a><a href="#g-api">APIs &amp; communication <span class="muted">2</span></a><a href="#g-network">Networking &amp; edge <span class="muted">1</span></a><a href="#g-scale">Consistency &amp; scale <span class="muted">8</span></a><a href="#g-practice">Engineering practice <span class="muted">5</span></a></nav>
+<section class="to-group" id="g-data"><h2 class="sec-title">Data stores</h2><div class="to-grid"><article class="to-card kind-comparison" id="immutable-data-vs-mutable-data" data-factors="scalability|flexibility">
+<header><div class="to-kind">Comparison <span class="badge m-growing est" title="Growing (estimated): ~73 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts"><span class="opt">Immutable data</span><span class="vs" aria-hidden="true">⇄</span><span class="opt">mutable data</span></h3></header>
+<div class="prose"><p>An image or a song would be immutable data.<br>
+The access pattern for those is a lot of reads, very few writes.<br>
+These would be best stored in a system where it's easy to read and stream and store in easily horizontally scalable blob storage systems like AWS S3.<br>
+Metadata like where the user stopped listening to the song gets written more often, or ability to search needs a different kind of database.</p>
+</div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/scalability.html">scalability</a><span class="factor">flexibility</span></div><a class="more" href="notes/immutable-data-vs-mutable-data.html">Open note →</a></footer>
+</article><article class="to-card kind-comparison" id="redis-vs-memcached" data-factors="latency|persistence">
+<header><div class="to-kind">Comparison <span class="badge m-growing est" title="Growing (estimated): ~24 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts"><a class="opt" href="notes/redis.html" data-note="notes/redis.html">Redis</a><span class="vs" aria-hidden="true">⇄</span><span class="opt">Memcached</span></h3></header>
+<div class="prose"><p>Memcached is supposedly a bit faster as it is multi threaded.<br>
+Redis has better support of more data types.<br>
+Redis has optional disk persistence.</p>
+</div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/latency.html">latency</a><span class="factor">persistence</span></div><a class="more" href="notes/redis-vs-memcached.html">Open note →</a></footer>
+</article><article class="to-card kind-comparison" id="postgresql-vs-mysql" data-factors="latency|flexibility">
+<header><div class="to-kind">Comparison <span class="badge m-growing est" title="Growing (estimated): ~61 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts"><a class="opt" href="notes/postgresql.html" data-note="notes/postgresql.html">PostgreSQL</a><span class="vs" aria-hidden="true">⇄</span><span class="opt">MySQL</span></h3></header>
+<div class="prose"><p>MySQL is thread per connection, where PostgreSQL is process per connection.<br>
+MySQL is seemingly faster for lots of concurrent simple reads. PostgreSQL takes up more memory, but handles complex queries better with its planner in its own process.</p>
+<p>PostgreSQL has many extensions, and good support for JSON for flexible document storage.</p>
+<p>Apparently MySQL is slightly more permissive with its SQL syntax.</p>
+</div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/latency.html">latency</a><span class="factor">flexibility</span></div><a class="more" href="notes/postgresql-vs-mysql.html">Open note →</a></footer>
+</article><article class="to-card kind-comparison" id="documentdb-vs-dynamodb" data-factors="latency|scalability|ops burden|flexibility">
+<header><div class="to-kind">Comparison <span class="badge m-growing est" title="Growing (estimated): ~78 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts"><span class="opt">DocumentDB</span><span class="vs" aria-hidden="true">⇄</span><a class="opt" href="notes/dynamodb.html" data-note="notes/dynamodb.html">DynamoDB</a></h3></header>
+<div class="prose"><p><mark><strong>Amazon DynamoDB</strong> and <strong>Amazon DocumentDB</strong> are both fully managed NoSQL databases on AWS, but they are built for entirely different data models and architectural needs</mark>.</p>
+<ul>
+<li>Choose <strong>DynamoDB</strong> if you need <strong>predictable, single-digit millisecond latency at virtually limitless scale</strong>, have well-defined access patterns, and want a truly serverless database.</li>
+<li>Choose <strong>DocumentDB</strong> if your data features <strong>complex, deeply nested JSON structures</strong>, you require powerful ad-hoc queries or aggregation pipelines, or you are migrating an existing MongoDB workload.</li>
+</ul>
+</div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/latency.html">latency</a><a class="factor" href="notes/scalability.html">scalability</a><span class="factor">ops burden</span><span class="factor">flexibility</span></div><a class="more" href="notes/documentdb-vs-dynamodb.html">Open note →</a></footer>
+</article><article class="to-card kind-comparison" id="postgresql-vs-dynamodb" data-factors="consistency|scalability|cost|ops burden">
+<header><div class="to-kind">Comparison <span class="badge m-growing est" title="Growing (estimated): ~85 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts"><a class="opt" href="notes/postgresql.html" data-note="notes/postgresql.html">PostgreSQL</a><span class="vs" aria-hidden="true">⇄</span><a class="opt" href="notes/dynamodb.html" data-note="notes/dynamodb.html">DynamoDB</a></h3></header>
+<div class="prose"><p>When I'd use DDB:</p>
+<ul>
+<li>if key value access is enough</li>
+<li>I need heavy write (more than 10k writes per second)</li>
+<li>automatic and managed sharding</li>
+</ul>
+<p>What you're giving up with postgres:</p>
+<ul>
+<li>relations and joins: in ddb, you have to manage constraints yourself or duplicate documents</li>
+<li>ad-hoc querying: harder to find specific data or debug without doing sequential scans
+<ul>
+<li>you lose ability to do aggregations like group by or avg</li>
+</ul>
+</li>
+<li>transactions</li>
+<li>strong consistency</li>
+<li>cost predictability (some ddb queries can be expensive as you pay per query)</li>
+</ul>
+</div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/consistency.html">consistency</a><a class="factor" href="notes/scalability.html">scalability</a><span class="factor">cost</span><span class="factor">ops burden</span></div><a class="more" href="notes/postgresql-vs-dynamodb.html">Open note →</a></footer>
+</article><article class="to-card kind-when" id="when-caching" data-factors="latency|cost">
+<header><div class="to-kind">When to use <span class="badge m-established est" title="Established (estimated): ~291 words of own writing, ~108 quoted, 8 sections, well connected"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></div><h3 class="to-opts">When to reach for <a class="opt" href="notes/caching.html" data-note="notes/caching.html">Caching</a></h3></header>
+<div class="cols cols-1"><div class="col"><div class="col-head">When to use caching</div><div class="prose"><aside class="external" data-kind="Video">
+<div class="ext-src">From <a class="ext-chip" href="sources/youtube-hello-interview-caching-in-system-design-interviews-w-meta-staff-engineer.html" data-note="sources/youtube-hello-interview-caching-in-system-design-interviews-w-meta-staff-engineer.html"><span class="ext-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="2"/><path d="M6.5 6v4l3.5-2z" fill="currentColor" stroke="none"/></svg></span>Caching in System Design Interviews w/ Meta Staff Engineer</a></div>
+<ul>
+<li>read heavy workload (millions)</li>
+<li>expensive queries (like catalog post processing)</li>
+<li>when database CPU is high, reduce load</li>
+<li>latency (when you need it to be faster )</li>
+</ul>
+</aside>
+</div></div></div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/latency.html">latency</a><span class="factor">cost</span></div><a class="more" href="notes/caching.html">Open note →</a></footer>
+</article><article class="to-card kind-when" id="when-database-sharding" data-factors="consistency|ops burden">
+<header><div class="to-kind">When to use <span class="badge m-established est" title="Established (estimated): ~311 words of own writing, ~15 quoted, 10 sections, well connected"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></div><h3 class="to-opts">When to reach for <a class="opt" href="notes/database-sharding.html" data-note="notes/database-sharding.html">Database Sharding</a></h3></header>
+<div class="cols cols-1"><div class="col"><div class="col-head">When to use sharding</div><div class="prose"><ul>
+<li>Write-heavy: Too much data for 1 instance (storage or write per second)</li>
+<li>Read-heavy: when read replicas or caching are not enough</li>
+</ul>
+<h2 id="trade-offs">Trade offs</h2>
+<ul>
+<li>Global queries will be slower</li>
+<li>Complexity to operate and keep data consistent</li>
+</ul>
+</div></div></div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/consistency.html">consistency</a><span class="factor">ops burden</span></div><a class="more" href="notes/database-sharding.html">Open note →</a></footer>
+</article><article class="to-card kind-when" id="when-aws-aurora" data-factors="availability|cost">
+<header><div class="to-kind">When to use <span class="badge m-established est" title="Established (estimated): ~131 words of own writing, ~171 quoted, 4 sections"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></div><h3 class="to-opts">When to reach for <a class="opt" href="notes/aws-aurora.html" data-note="notes/aws-aurora.html">AWS Aurora</a></h3></header>
+<div class="cols cols-2"><div class="col"><div class="col-head">When to use aurora</div><div class="prose"><ul>
+<li>heavy reads making the need of more read replicas</li>
+<li>heavy writes keeping it cost efficient</li>
+</ul>
+</div></div><div class="col"><div class="col-head">When not to use it</div><div class="prose"><ul>
+<li>less than 100GB with predictable traffic</li>
+<li>1-2 minutes of downtime is ok</li>
+</ul>
+</div></div></div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/availability.html">availability</a><span class="factor">cost</span></div><a class="more" href="notes/aws-aurora.html">Open note →</a></footer>
+</article><article class="to-card kind-when" id="when-cassandra-database" data-factors="consistency|availability|flexibility">
+<header><div class="to-kind">When to use <span class="badge m-growing est" title="Growing (estimated): ~34 words of own writing, ~45 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts">When to reach for <a class="opt" href="notes/cassandra-database.html" data-note="notes/cassandra-database.html">Cassandra Database</a></h3></header>
+<div class="cols cols-2"><div class="col"><div class="col-head">When to choose Cassandra</div><div class="prose"><ul>
+<li>Write heavy</li>
+<li>Zero downtime needed (in traditional master/slave, there is a small downtime if master is down for the failover to happen)</li>
+</ul>
+</div></div><div class="col"><div class="col-head">When not to</div><div class="prose"><aside class="external" data-kind="Blog">
+<div class="ext-src">From <a class="ext-chip" href="sources/blog-system-design-solutions-when-to-use-cassandra-and-when-not-to.html" data-note="sources/blog-system-design-solutions-when-to-use-cassandra-and-when-not-to.html"><span class="ext-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 1.5h5.5L12.5 4.5v10h-8.5z"/><path d="M9.5 1.5v3h3M6 8h4.5M6 10.5h4.5"/></svg></span>System Design Solutions: When to use Cassandra and when not to</a></div>
+<ul>
+<li>
+<h3 id="when-you-want-a-lot-of-different-types-of-queries-or-you-can-t-predict-your-data-usage">When you want a lot of different types of queries or you can’t predict your data usage</h3>
+</li>
+<li>
+<h3 id="when-a-single-node-works">When a single node works</h3>
+</li>
+<li>
+<h3 id="when-you-want-strong-acid-compliance">When you want strong ACID compliance</h3>
+</li>
+<li>
+<h3 id="when-you-want-many-to-many-mappings-or-join-tables">When you want many-to-many mappings or join tables</h3>
+</li>
+<li>
+<h3 id="when-you-don-t-want-a-rigid-schema">When you don’t want a rigid schema</h3>
+</li>
+</ul>
+</aside>
+</div></div></div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/consistency.html">consistency</a><a class="factor" href="notes/availability.html">availability</a><span class="factor">flexibility</span></div><a class="more" href="notes/cassandra-database.html">Open note →</a></footer>
+</article></div></section><section class="to-group" id="g-messaging"><h2 class="sec-title">Messaging &amp; events</h2><div class="to-grid"><article class="to-card kind-comparison" id="kafka-vs-sqs" data-factors="throughput|scalability|ordering|persistence|cost|ops burden">
+<header><div class="to-kind">Comparison <span class="badge m-growing est" title="Growing (estimated): ~45 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts"><span class="opt">Kafka</span><span class="vs" aria-hidden="true">⇄</span><span class="opt">SQS</span></h3></header>
+<div class="cols cols-2"><div class="col"><div class="col-head">Kafka wins when</div><div class="prose"><ul>
+<li>You need persistence</li>
+<li>Strict ordering at scale</li>
+<li>Stream processing</li>
+</ul>
+</div></div><div class="col"><div class="col-head">SQS+SNS wins when</div><div class="prose"><ul>
+<li>You're ok with the AWS structure and minimal operations</li>
+<li>Retry + DLQ built-in</li>
+<li>Ordering does not matter as much, high throughput does</li>
+<li>Costs are fine as you pay per ack</li>
+</ul>
+</div></div></div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/throughput.html">throughput</a><a class="factor" href="notes/scalability.html">scalability</a><span class="factor">ordering</span><span class="factor">persistence</span><span class="factor">cost</span><span class="factor">ops burden</span></div><a class="more" href="notes/kafka-vs-sqs.html">Open note →</a></footer>
+</article><article class="to-card kind-when" id="when-message-queues" data-factors="scalability|ops burden">
+<header><div class="to-kind">When to use <span class="badge m-established est" title="Established (estimated): ~410 words of own writing, ~75 quoted, 12 sections"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></div><h3 class="to-opts">When to reach for <a class="opt" href="notes/message-queues.html" data-note="notes/message-queues.html">Message queues</a></h3></header>
+<div class="cols cols-1"><div class="col"><div class="col-head">When to use system queues</div><div class="prose"><ul>
+<li>operations too long for a live server, get feedback to users quickly</li>
+<li>reduce load on a live server</li>
+<li>when you want the ability to scale differently for different tasks (ie retrievers need less memory than collectors in dogs)</li>
+<li>reliability: keep messages to be processed in queue until workers are healthy again</li>
+</ul>
+</div></div></div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/scalability.html">scalability</a><span class="factor">ops burden</span></div><a class="more" href="notes/message-queues.html">Open note →</a></footer>
+</article><article class="to-card kind-when" id="when-event-driven-system" data-factors="latency|persistence">
+<header><div class="to-kind">When to use <span class="badge m-growing est" title="Growing (estimated): ~26 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts">When to reach for <a class="opt" href="notes/event-driven-system.html" data-note="notes/event-driven-system.html">Event Driven System</a></h3></header>
+<div class="cols cols-1"><div class="col"><div class="col-head">When to use them</div><div class="prose"><ul>
+<li>Dealing with important events that needs to be stored forever (ie refund events)</li>
+<li>When you need replayability of events (reprocess historical data)</li>
+<li>Real-time data processing</li>
+</ul>
+</div></div></div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/latency.html">latency</a><span class="factor">persistence</span></div><a class="more" href="notes/event-driven-system.html">Open note →</a></footer>
+</article></div></section><section class="to-group" id="g-api"><h2 class="sec-title">APIs &amp; communication</h2><div class="to-grid"><article class="to-card kind-comparison" id="rest-vs-graphql" data-factors="ops burden|flexibility">
+<header><div class="to-kind">Comparison <span class="badge m-growing est" title="Growing (estimated): ~24 words of own writing, ~52 quoted, well connected"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts"><span class="opt">REST</span><span class="vs" aria-hidden="true">⇄</span><a class="opt" href="notes/graphql.html" data-note="notes/graphql.html">GraphQL</a></h3></header>
+<div class="prose"><aside class="external" data-kind="Video">
+<div class="ext-src">From <a class="ext-chip" href="sources/youtube-maddy-zhang-900plus-hours-of-learning-system-design-in-9-minutes.html" data-note="sources/youtube-maddy-zhang-900plus-hours-of-learning-system-design-in-9-minutes.html"><span class="ext-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="2"/><path d="M6.5 6v4l3.5-2z" fill="currentColor" stroke="none"/></svg></span>900+ hours of Learning System Design in 9 Minutes</a></div>
+<p>What matters more is good API design</p>
+</aside>
+<p>When is GraphQL is a good idea?<br>
+When flexibility of what data to retrieve is important, but it is possibly rarely worth the overhead.</p>
+<aside class="external" data-kind="Blog">
+<div class="ext-src">From <a class="ext-chip" href="sources/blog-50-shades-of-system-design.html" data-note="sources/blog-50-shades-of-system-design.html"><span class="ext-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 1.5h5.5L12.5 4.5v10h-8.5z"/><path d="M9.5 1.5v3h3M6 8h4.5M6 10.5h4.5"/></svg></span>50 shades of system design</a></div>
+<blockquote>
+<p>REST exposes predefined endpoints that return fixed data structures. GraphQL lets clients request exactly the fields they need through a query, but adds complexity for query execution, caching, &amp; performance control. Use REST for simpler, resource-based APIs, and GraphQL when clients need flexible data access.</p>
+</blockquote>
+</aside>
+</div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><span class="factor">ops burden</span><span class="factor">flexibility</span></div><a class="more" href="notes/rest-vs-graphql.html">Open note →</a></footer>
+</article><article class="to-card kind-comparison" id="api-short-vs-long-timeouts" data-factors="latency|ops burden">
+<header><div class="to-kind">Comparison <span class="badge m-growing est" title="Growing (estimated): ~16 words of own writing, ~48 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts"><span class="opt">API short</span><span class="vs" aria-hidden="true">⇄</span><span class="opt">long timeouts</span></h3></header>
+<div class="prose"><p>Set long timeouts intentionally, services should be fast, unless it is purposefully (can't do otherwise) slow.</p>
+<aside class="external" data-kind="Blog">
+<div class="ext-src">From <a class="ext-chip" href="sources/blog-50-shades-of-system-design.html" data-note="sources/blog-50-shades-of-system-design.html"><span class="ext-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 1.5h5.5L12.5 4.5v10h-8.5z"/><path d="M9.5 1.5v3h3M6 8h4.5M6 10.5h4.5"/></svg></span>50 shades of system design</a></div>
+<blockquote>
+<p><strong>Short vs long timeouts.</strong> Short timeouts release resources quickly when dependencies are slow. Yet setting them too aggressively can abandon requests that would have completed successfully a moment later. Use short timeouts when fast failure and resource protection matter, and long timeouts when operations legitimately need more time.</p>
+</blockquote>
+</aside>
+</div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/latency.html">latency</a><span class="factor">ops burden</span></div><a class="more" href="notes/api-short-vs-long-timeouts.html">Open note →</a></footer>
+</article></div></section><section class="to-group" id="g-network"><h2 class="sec-title">Networking &amp; edge</h2><div class="to-grid"><article class="to-card kind-comparison" id="websockets-vs-sse-vs-api-polling" data-factors="ops burden">
+<header><div class="to-kind">Comparison <span class="badge m-growing est" title="Growing (estimated): ~84 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts"><a class="opt" href="notes/websocket.html" data-note="notes/websocket.html">WebSockets</a><span class="vs" aria-hidden="true">⇄</span><span class="opt">SSE</span><span class="vs" aria-hidden="true">⇄</span><span class="opt">API polling</span></h3></header>
+<div class="prose"><p>WebSockets is 2 way open connection.<br>
+SSE (Server Sent Events) is one way.<br>
+API usually have a timeout of 30-60 seconds, configured by an outside system, often.</p>
+<p>If the operation you're doing will take more than 5-10 seconds, it's best to make it async.<br>
+APIs can be done async if you poll, or you can keep an open connection</p>
+<p>When is polling better? Why is it more simple? Doesn't need to keep the connection open? Which one has less load on server?</p>
+</div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><span class="factor">ops burden</span></div><a class="more" href="notes/websockets-vs-sse-vs-api-polling.html">Open note →</a></footer>
+</article></div></section><section class="to-group" id="g-scale"><h2 class="sec-title">Consistency &amp; scale</h2><div class="to-grid"><article class="to-card kind-comparison" id="generic-vs-concrete-software-design" data-factors="consistency|availability">
+<header><div class="to-kind">Comparison <span class="badge m-growing est" title="Growing (estimated): ~71 words of own writing, ~92 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts"><span class="opt">Generic</span><span class="vs" aria-hidden="true">⇄</span><span class="opt">Concrete software design</span></h3></header>
+<div class="prose"><p>What worked for others in other scenarios might not work for you.</p>
+<aside class="external" data-kind="Blog">
+<div class="ext-src">From <a class="ext-chip" href="sources/blog-you-can-t-design-software-you-don-t-work-on.html" data-note="sources/blog-you-can-t-design-software-you-don-t-work-on.html"><span class="ext-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 1.5h5.5L12.5 4.5v10h-8.5z"/><path d="M9.5 1.5v3h3M6 8h4.5M6 10.5h4.5"/></svg></span>You can't design software you don't work on</a></div>
+<blockquote>
+<p>In large codebases, consistency is more important than “good design”</p>
+</blockquote>
+</aside>
+<p>Concrete system design discussions are best done by the people involved in working in the system. It'll be more specific.</p>
+<aside class="external" data-kind="Blog">
+<div class="ext-src">From <a class="ext-chip" href="sources/blog-you-can-t-design-software-you-don-t-work-on.html" data-note="sources/blog-you-can-t-design-software-you-don-t-work-on.html"><span class="ext-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 1.5h5.5L12.5 4.5v10h-8.5z"/><path d="M9.5 1.5v3h3M6 8h4.5M6 10.5h4.5"/></svg></span>You can't design software you don't work on</a></div>
+<blockquote>
+<p>The kinds of topic being discussed are not “is DRY better than WET”, but instead “could we put this new behavior in subsystem A? No, because it needs information B, which isn’t available to that subsystem in context C, and we can’t expose that without rewriting subsystem D, but if we split up subsystem E here and here…“.</p>
+</blockquote>
+</aside>
+<p>This is why the &quot;architect&quot; role is not that good, because their role is to create generic system design. Sean goes as far as:</p>
+<blockquote>
+<p>architects can both claim credit for successes (after all, it was their design) and disclaim failures (if only those fools had followed my design!)</p>
+</blockquote>
+<p>Generic system design is helpful for:</p>
+<ul>
+<li>new systems</li>
+<li>tie-breaking between decisions for existing systems</li>
+</ul>
+</div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/consistency.html">consistency</a><a class="factor" href="notes/availability.html">availability</a></div><a class="more" href="notes/generic-vs-concrete-software-design.html">Open note →</a></footer>
+</article><article class="to-card kind-comparison" id="consistency-vs-availability" data-factors="consistency|availability">
+<header><div class="to-kind">Comparison <span class="badge m-growing est" title="Growing (estimated): ~71 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts"><a class="opt" href="notes/consistency.html" data-note="notes/consistency.html">Consistency</a><span class="vs" aria-hidden="true">⇄</span><a class="opt" href="notes/availability.html" data-note="notes/availability.html">Availability</a></h3></header>
+<div class="prose"><p>Consistency = every read gets most recent write<br>
+Availability = the system responds even if it's not the most recent data</p>
+<p>For example with Ticketmaster, consistency is way more important, but for rate limiters, availability is more important.<br>
+It could be different even within Ticketmaster, for example for search, availability is more important, but for booking, consistency is more important</p>
+<p>Think of read vs write ratio. People search more than they buy tickets</p>
+</div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/consistency.html">consistency</a><a class="factor" href="notes/availability.html">availability</a></div><a class="more" href="notes/consistency-vs-availability.html">Open note →</a></footer>
+</article><article class="to-card kind-comparison" id="cron-jobs-to-fix-data-vs-ttl" data-factors="">
+<header><div class="to-kind">Comparison <span class="badge m-growing est" title="Growing (estimated): ~21 words of own writing, ~36 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts"><span class="opt">Cron jobs to fix data</span><span class="vs" aria-hidden="true">⇄</span><span class="opt">TTL</span></h3></header>
+<div class="prose"><p>Depending on the data you need to fix, if it's simply releasing something, then a TTL on a row is better.</p>
+<aside class="external" data-kind="Video">
+<div class="ext-src">From <a class="ext-chip" href="sources/youtube-hello-interview-system-design-interview-design-ticketmaster-w-a-ex-meta-staff-engineer.html" data-note="sources/youtube-hello-interview-system-design-interview-design-ticketmaster-w-a-ex-meta-staff-engineer.html"><span class="ext-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="2"/><path d="M6.5 6v4l3.5-2z" fill="currentColor" stroke="none"/></svg></span>System Design Interview: Design Ticketmaster w/ a Ex-Meta Staff Engineer</a></div>
+<p>Cron jobs to fix data are fine, but think of the delta this introduces when you expect something to happen and when it actually happens. Something event based to trigger asap is often better. Or TTL</p>
+</aside>
+</div>
+<footer><a class="more" href="notes/cron-jobs-to-fix-data-vs-ttl.html">Open note →</a></footer>
+</article><article class="to-card kind-comparison" id="saga-choreography-vs-saga-orchestration" data-factors="">
+<header><div class="to-kind">Comparison <span class="badge m-growing est" title="Growing (estimated): ~31 words of own writing, ~50 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts"><span class="opt">Saga choreography</span><span class="vs" aria-hidden="true">⇄</span><span class="opt">saga orchestration</span></h3></header>
+<div class="prose"><p>Either each service triggers the next one, or there is an orchestrator managing the whole thing.<br>
+Queen was an orchestrator whereas in PIMS, it was choreography style, retriever triggers transformer, etc.</p>
+<aside class="external" data-kind="Blog">
+<div class="ext-src">From <a class="ext-chip" href="sources/blog-50-shades-of-system-design.html" data-note="sources/blog-50-shades-of-system-design.html"><span class="ext-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 1.5h5.5L12.5 4.5v10h-8.5z"/><path d="M9.5 1.5v3h3M6 8h4.5M6 10.5h4.5"/></svg></span>50 shades of system design</a></div>
+<blockquote>
+<p>With choreography, each service reacts to events and triggers the next step without a central controller. With orchestration, a central orchestrator tells each service what to do and tracks the overall workflow. Use choreography for simpler, loosely coupled workflows, and use orchestration for complex workflows that need centralized coordination &amp; recovery.</p>
+</blockquote>
+</aside>
+</div>
+<footer><a class="more" href="notes/saga-choreography-vs-saga-orchestration.html">Open note →</a></footer>
+</article><article class="to-card kind-comparison" id="batch-processing-vs-stream-processing" data-factors="availability|latency|ops burden">
+<header><div class="to-kind">Comparison <span class="badge m-growing est" title="Growing (estimated): ~27 words of own writing, ~39 quoted"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts"><span class="opt">Batch processing</span><span class="vs" aria-hidden="true">⇄</span><span class="opt">stream processing</span></h3></header>
+<div class="prose"><p>In old existing product data, it was stream processing, processing one spider item at a time.<br>
+whereas in dogs, it was batch processing, processing 'big' sqlite files</p>
+<aside class="external" data-kind="Blog">
+<div class="ext-src">From <a class="ext-chip" href="sources/blog-50-shades-of-system-design.html" data-note="sources/blog-50-shades-of-system-design.html"><span class="ext-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 1.5h5.5L12.5 4.5v10h-8.5z"/><path d="M9.5 1.5v3h3M6 8h4.5M6 10.5h4.5"/></svg></span>50 shades of system design</a></div>
+<blockquote>
+<p>Batch processing collects data &amp; processes it together at scheduled intervals, thus making it efficient for BIG datasets. Stream processing processes data continuously as it arrives, providing lower-latency results but adds unbounded data, state, time, and fault recovery complexity.</p>
+</blockquote>
+</aside>
+</div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/availability.html">availability</a><a class="factor" href="notes/latency.html">latency</a><span class="factor">ops burden</span></div><a class="more" href="notes/batch-processing-vs-stream-processing.html">Open note →</a></footer>
+</article><article class="to-card kind-comparison" id="forward-proxy-vs-reverse-proxy-vs-api-gateway" data-factors="consistency">
+<header><div class="to-kind">Comparison <span class="badge m-established est" title="Established (estimated): ~243 words of own writing, includes a diagram or table"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></div><h3 class="to-opts"><span class="opt">Forward proxy</span><span class="vs" aria-hidden="true">⇄</span><a class="opt" href="notes/reverse-proxy.html" data-note="notes/reverse-proxy.html">Reverse proxy</a><span class="vs" aria-hidden="true">⇄</span><a class="opt" href="notes/api-gateway.html" data-note="notes/api-gateway.html">API Gateway</a></h3></header>
+<div class="prose"><p>Forward proxy: next to the client before reaching internet<br>
+Reverse proxy: server side to go to the right server<br>
+API gateway: reverse proxy that does more than routing. it handles auth, rate limiting and other things before going to the right API</p>
+<img src="assets/img/pasted-image-20260817115438.png" alt="Pasted image 20260817115438.png" loading="lazy">
+<p>A forward proxy sits next to the client. Your laptop sends a request, the proxy forwards it out, and the destination never sees your real IP. Corporate networks use this to enforce policy, block sites, and cache traffic.</p>
+<p>A <a class="wikilink" href="notes/reverse-proxy.html" data-note="notes/reverse-proxy.html">Reverse proxy</a> sits next to the server. The client has no idea how many machines are behind it. The proxy decides who handles the request, terminates TLS, and keeps your backend off the public internet. NGINX and HAProxy are commonly used here, typically paired with a <a class="wikilink" href="notes/load-balancer.html" data-note="notes/load-balancer.html">Load Balancer</a> in front.</p>
+<p>An API gateway is a reverse proxy that does more than route traffic. It also handles auth, rate limits, API keys, versioning, and request shaping. Without it, each microservice has to implement its own version of validation, throttling logic, and request logging.</p>
+<p>A forward proxy represents the client, a reverse proxy represents the server, and an API gateway is what you add when ten services need the same authentication and rate limiting rules applied consistently.</p>
+<p>In most real systems, all three are running at different layers. The forward proxy filters outbound traffic, the reverse proxy fronts the application servers, and the API gateway sits in front of your APIs to enforce policies before requests reach them.</p>
+</div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/consistency.html">consistency</a></div><a class="more" href="notes/forward-proxy-vs-reverse-proxy-vs-api-gateway.html">Open note →</a></footer>
+</article><article class="to-card kind-comparison" id="reverse-proxy-vs-api-gateway-vs-load-balancer" data-factors="scalability">
+<header><div class="to-kind">Comparison <span class="badge m-established est" title="Established (estimated): ~432 words of own writing, ~27 quoted, includes a diagram or table"><span aria-hidden="true">🌳</span><span class="sr">Established</span></span></div><h3 class="to-opts"><a class="opt" href="notes/reverse-proxy.html" data-note="notes/reverse-proxy.html">Reverse proxy</a><span class="vs" aria-hidden="true">⇄</span><a class="opt" href="notes/api-gateway.html" data-note="notes/api-gateway.html">API gateway</a><span class="vs" aria-hidden="true">⇄</span><a class="opt" href="notes/load-balancer.html" data-note="notes/load-balancer.html">load balancer</a></h3></header>
+<div class="prose"><p><a class="wikilink" href="notes/reverse-proxy.html" data-note="notes/reverse-proxy.html">Reverse proxy</a><br>
+An API gateway is a specialized type of reverse proxy</p>
+<aside class="external" data-kind="other">
+<div class="ext-src">From <span class="ext-chip"><span class="ext-icon" aria-hidden="true"><svg class="icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5H3v9.5h9.5V9.5M9 2.5h4.5V7M13.5 2.5 7.5 8.5"/></svg></span>Google</span></div>
+<p>While a <strong>load balancer</strong>, a <strong>reverse proxy</strong>, and an <strong>API gateway</strong> look similar because they all sit between clients and backend services, they serve entirely different purposes.</p>
+</aside>
+<p>The easiest way to differentiate them is by their core focus: a load balancer focuses on <strong>scale</strong>, a reverse proxy focuses on <strong>security and optimization</strong>, and an API gateway focuses on <strong>application logic and API management</strong>.</p>
+<p>Direct Comparison</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Reverse Proxy</th>
+<th>Load Balancer</th>
+<th>API Gateway</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Primary Goal</strong></td>
+<td>Protects, caches, and isolates backend web servers.</td>
+<td>Distributes traffic to prevent server overload.</td>
+<td>Manages, secures, and routes individual API endpoints.</td>
+</tr>
+<tr>
+<td><strong>Traffic Focus</strong></td>
+<td>General web traffic (HTTP/HTTPS, static files).</td>
+<td>Network layers (TCP/UDP) or application layers (HTTP).</td>
+<td>Application APIs (REST, GraphQL, gRPC).</td>
+</tr>
+<tr>
+<td><strong>Typical Tools</strong></td>
+<td>NGINX, Apache, HAProxy</td>
+<td>AWS ALB, F5 BIG-IP, HAProxy</td>
+<td>Kong, Apigee, AWS API Gateway</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<ol>
+<li>Reverse Proxy (The Shield &amp; Booster)</li>
+</ol>
+<p>A reverse proxy sits in front of a web server to shield its identity, optimize performance, and handle incoming requests. It acts as an intermediary so clients never talk directly to your actual application servers.</p>
+<ul>
+<li><strong>Main Job:</strong> Privacy, security, and offloading repetitive tasks.</li>
+<li><strong>Key Capabilities:</strong>
+<ul>
+<li><strong>SSL/TLS Termination:</strong> It handles the heavy encryption/decryption work so backend servers don't have to.</li>
+<li><strong>Caching:</strong> It stores copies of popular static content (like images or CSS) and serves them instantly without hitting your backend.</li>
+<li><strong>Anonymity:</strong> It hides the IP addresses and structures of your internal infrastructure from the public internet.</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li>API Gateway (The Smart Concierge)</li>
+</ol>
+<p>An API gateway is a specialized type of reverse proxy designed specifically for modern <strong>microservices</strong> architectures. It doesn't just pass requests along; it inspects, translates, and manipulates them based on application rules.</p>
+<ul>
+<li><strong>Main Job:</strong> Orchestrating API requests and enforcing business logic at the edge.</li>
+<li><strong>Key Capabilities:</strong>
+<ul>
+<li><strong>Request Routing / Composition:</strong> It can take a single request from a mobile app, fetch data from three separate backend microservices (e.g., Users, Inventory, and Shipping), combine the data, and send back one clean response.</li>
+<li><strong>Authentication &amp; Authorization:</strong> It checks if a user's API token is valid <em>before</em> letting the request reach any microservices.</li>
+<li><strong>Rate Limiting &amp; Throttling:</strong> It blocks users who try to spam or abuse specific endpoints (e.g., limiting a user to 60 requests per minute).</li>
+<li><strong>Protocol Translation:</strong> It can convert an incoming REST request into an internal gRPC request.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>How They Work Together</p>
+<p>In a large production environment, you will often see all three layered together to form a robust architecture:</p>
+<ol>
+<li>A <strong>Load Balancer</strong> sits at the very front to split incoming traffic across multiple instances.</li>
+<li>The traffic hits a <strong>Reverse Proxy</strong> to strip away SSL encryption and handle basic caching.</li>
+<li>The request is passed to the <strong>API Gateway</strong>, which authorizes the user's API token and routes them to the correct backend microservice.</li>
+</ol>
+</div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/scalability.html">scalability</a></div><a class="more" href="notes/reverse-proxy-vs-api-gateway-vs-load-balancer.html">Open note →</a></footer>
+</article><article class="to-card kind-comparison" id="stateless-vs-sticky-sessions" data-factors="">
+<header><div class="to-kind">Comparison <span class="badge m-growing est" title="Growing (estimated): ~37 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts"><span class="opt">Stateless</span><span class="vs" aria-hidden="true">⇄</span><span class="opt">Sticky sessions</span></h3></header>
+<div class="prose"><p>Sticky session means it'll only work if the user has time come back to a specific server.<br>
+Stateless means server needs to treat the request as if the user came in here for the very first time</p>
+</div>
+<footer><a class="more" href="notes/stateless-vs-sticky-sessions.html">Open note →</a></footer>
+</article></div></section><section class="to-group" id="g-practice"><h2 class="sec-title">Engineering practice</h2><div class="to-grid"><article class="to-card kind-comparison" id="how-to-align-what-the-company-wants-vs-what-individuals-want" data-factors="">
+<header><div class="to-kind">Comparison <span class="badge m-seedling est" title="Seedling (estimated): a single line"><span aria-hidden="true">🌱</span><span class="sr">Seedling</span></span></div><h3 class="to-opts"><span class="opt">How to align what the company wants</span><span class="vs" aria-hidden="true">⇄</span><span class="opt">what individuals want</span></h3></header>
+<div class="prose"><p>aka <a class="wikilink" href="notes/sponsoring.html" data-note="notes/sponsoring.html">Sponsoring</a></p>
+</div>
+<footer><a class="more" href="notes/how-to-align-what-the-company-wants-vs-what-individuals-want.html">Open note →</a></footer>
+</article><article class="to-card kind-comparison" id="expectations-of-junior-vs-senior-people" data-factors="">
+<header><div class="to-kind">Comparison <span class="badge m-seedling est" title="Seedling (estimated): a single line"><span aria-hidden="true">🌱</span><span class="sr">Seedling</span></span></div><h3 class="to-opts"><span class="opt">Expectations of junior</span><span class="vs" aria-hidden="true">⇄</span><span class="opt">senior people</span></h3></header>
+<div class="prose"><p>juniors execute, seniors question.</p>
+</div>
+<footer><a class="more" href="notes/expectations-of-junior-vs-senior-people.html">Open note →</a></footer>
+</article><article class="to-card kind-comparison" id="ai-single-agent-vs-multi-agent" data-factors="">
+<header><div class="to-kind">Comparison <span class="badge m-growing est" title="Growing (estimated): ~26 words of own writing"><span aria-hidden="true">🌿</span><span class="sr">Growing</span></span></div><h3 class="to-opts"><span class="opt">Single agent</span><span class="vs" aria-hidden="true">⇄</span><span class="opt">multi agent</span></h3></header>
+<div class="prose"><p>Frontier models are good by themselves (ie <span class="dangling" title="Not published">Claude Code</span>)<br>
+Single agent (could) need more human in the loop to review, where multi agent could review itself.</p>
+</div>
+<footer><a class="more" href="notes/ai-single-agent-vs-multi-agent.html">Open note →</a></footer>
+</article><article class="to-card kind-opposite" id="how-ai-changes-the-software-engineer-role-how-ai-does-not-change-in-the-software-engineer-role" data-factors="latency|cost">
+<header><div class="to-kind">Counterpoints</div><h3 class="to-opts"><a class="opt" href="notes/how-ai-changes-the-software-engineer-role.html" data-note="notes/how-ai-changes-the-software-engineer-role.html">How AI changes the software engineer role</a><span class="vs" aria-hidden="true">⇄</span><a class="opt" href="notes/how-ai-does-not-change-in-the-software-engineer-role.html" data-note="notes/how-ai-does-not-change-in-the-software-engineer-role.html">How AI does not change in the software engineer role</a></h3></header>
+<div class="cols cols-2"><div class="col"><div class="col-head">How AI changes the software engineer role</div><div class="prose"><p>Good foundation is still key. AI is a signal amplifier, not just a tool. It will amplify the good and the bad. System design is still very important (some say that hyper-generalists will survive if they have this skill) The bottleneck of writing code is now gone. This allows shipping faster, perhaps at the cost of learning and developing judgement…</p></div><a class="more" href="notes/how-ai-changes-the-software-engineer-role.html">Read note →</a></div><div class="col"><div class="col-head">How AI does not change in the software engineer role</div><div class="prose"><p>We still think in black boxes and inputs/outputs like before. Collaboration is still key (in theory). We still think in processes rather than language syntax. Systems thinking. Refactoring. Engineering with ai is lot like regular engineering, refactoring with skills.</p></div><a class="more" href="notes/how-ai-does-not-change-in-the-software-engineer-role.html">Read note →</a></div></div>
+<footer><div class="factors"><span class="lbl">Hinges on</span><a class="factor" href="notes/latency.html">latency</a><span class="factor">cost</span></div></footer>
+</article><article class="to-card kind-opposite" id="ai-single-agent-vs-multi-agent-ai-multi-agent" data-factors="">
+<header><div class="to-kind">Counterpoints</div><h3 class="to-opts"><a class="opt" href="notes/ai-single-agent-vs-multi-agent.html" data-note="notes/ai-single-agent-vs-multi-agent.html">AI - Single agent vs multi agent</a><span class="vs" aria-hidden="true">⇄</span><a class="opt" href="notes/ai-multi-agent.html" data-note="notes/ai-multi-agent.html">AI Multi Agent</a></h3></header>
+<div class="cols cols-2"><div class="col"><div class="col-head">AI - Single agent vs multi agent</div><div class="prose"><p>Frontier models are good by themselves (ie Claude Code) Single agent (could) need more human in the loop to review, where multi agent could review itself.</p></div><a class="more" href="notes/ai-single-agent-vs-multi-agent.html">Read note →</a></div><div class="col"><div class="col-head">AI Multi Agent</div><div class="prose"><p>They have an architect, scout, coder, reviewer and verifier. https://github.com/jarod-rosenthal/workermill. They have a planner, a developer (frontend, backend, devops), a tech lead. The tech lead reviews the code. Up to 3 times. Related: Smart hybrid AI usage - Using frontier models for thinking and local models for executing.</p></div><a class="more" href="notes/ai-multi-agent.html">Read note →</a></div></div>
+<footer></footer>
+</article></div></section>
+<p class="muted empty-filter" hidden>No comparisons match all selected factors.</p></main>
+  
+</div>
+<footer class="sitefoot"><p>Personal notes, shared as-is. Sourced passages link to their origin. Built from an Obsidian vault.</p></footer>
+</body>
+</html>
